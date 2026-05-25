@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f8fafc;
+  --primary: #2563eb;
+  --emergency: #f59e0b;
+  --success: #059669;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  background: var(--bg);
+  color: #0f172a;
+  overflow-x: hidden;
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #2563eb 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-border {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, #2563eb, #059669);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.shimmer-border {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.shimmer-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from 0deg, #2563eb, #059669, #7c3aed, #2563eb);
+  animation: spin 4s linear infinite;
+  z-index: 0;
+}
+
+.shimmer-border > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.glow-blue {
+  box-shadow: 0 0 32px rgba(37, 99, 235, 0.25);
+}
+
+.glow-amber {
+  box-shadow: 0 0 32px rgba(245, 158, 11, 0.35);
+}
+
+.glow-green {
+  box-shadow: 0 0 24px rgba(5, 150, 105, 0.25);
+}
+
+.section-label {
+  @apply text-xs font-semibold uppercase tracking-[0.12em] text-blue-600;
+}
+
+.card {
+  @apply rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(15,23,42,0.06)] transition-all duration-300;
+}
+
+.card:hover {
+  @apply -translate-y-1 shadow-[0_8px_32px_rgba(15,23,42,0.1)];
+}
