@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import clsx from "clsx";
 
 export function FadeUp({
   children,
@@ -14,10 +15,9 @@ export function FadeUp({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32, filter: "blur(4px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
@@ -25,6 +25,7 @@ export function FadeUp({
   );
 }
 
+/** @deprecated use Panel */
 export function SectionWrapper({
   id,
   children,
@@ -35,19 +36,60 @@ export function SectionWrapper({
   className?: string;
 }) {
   return (
-    <section id={id} className={`relative px-6 py-24 md:py-32 ${className ?? ""}`}>
-      <motion.div
-        className="mx-auto max-w-6xl"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-      >
-        {children}
-      </motion.div>
+    <section id={id} className={className}>
+      {children}
     </section>
   );
 }
 
+export function Panel({ children, className }: { children: ReactNode; className?: string }) {
+  return <div className={clsx("mx-auto max-w-5xl", className)}>{children}</div>;
+}
+
+export function PanelHeader({
+  num,
+  title,
+  subtitle,
+  dark,
+}: {
+  num: string;
+  title: string;
+  subtitle?: string;
+  dark?: boolean;
+}) {
+  return (
+    <FadeUp className="mb-10">
+      <p
+        className={clsx(
+          "font-display text-7xl font-bold leading-none tracking-tight",
+          dark ? "text-white/15" : "text-amber-700/25"
+        )}
+      >
+        {num}
+      </p>
+      <h2
+        className={clsx(
+          "mt-2 font-display text-3xl font-bold tracking-tight lg:text-4xl",
+          dark ? "text-white" : "text-slate-900"
+        )}
+      >
+        {title}
+      </h2>
+      {subtitle && (
+        <p
+          className={clsx(
+            "mt-4 max-w-3xl text-base leading-relaxed lg:text-lg",
+            dark ? "text-slate-300" : "text-slate-600"
+          )}
+        >
+          {subtitle}
+        </p>
+      )}
+    </FadeUp>
+  );
+}
+
+/** @deprecated use PanelHeader */
 export function SectionHeader({
   label,
   title,
@@ -59,21 +101,6 @@ export function SectionHeader({
   subtitle?: string;
   dark?: boolean;
 }) {
-  return (
-    <FadeUp className="mb-16 max-w-3xl">
-      <p className={dark ? "section-label-dark mb-4" : "section-label mb-4"}>{label}</p>
-      <h2
-        className={`font-display text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl ${
-          dark ? "text-white" : "text-slate-900"
-        }`}
-      >
-        {title}
-      </h2>
-      {subtitle && (
-        <p className={`mt-4 text-lg leading-relaxed ${dark ? "text-slate-300" : "text-slate-600"}`}>
-          {subtitle}
-        </p>
-      )}
-    </FadeUp>
-  );
+  const num = label.split("·")[0]?.trim() ?? "";
+  return <PanelHeader num={num} title={title} subtitle={subtitle} dark={dark} />;
 }

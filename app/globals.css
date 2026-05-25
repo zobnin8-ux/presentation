@@ -22,10 +22,29 @@ html.lenis body {
   scroll-behavior: auto !important;
 }
 
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   background: var(--bg);
   color: #0f172a;
-  overflow-x: hidden;
+}
+
+.presentation-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(180, 83, 9, 0.35) transparent;
+}
+
+.presentation-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.presentation-scroll::-webkit-scrollbar-thumb {
+  background: rgba(180, 83, 9, 0.35);
+  border-radius: 4px;
 }
 
 .grid-bg {

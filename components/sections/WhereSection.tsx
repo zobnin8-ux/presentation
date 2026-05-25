@@ -1,23 +1,22 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { chainSteps, whereColumns } from "@/lib/content";
-import { FadeUp, SectionHeader, SectionWrapper } from "@/components/ui/Section";
+import { FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 
 export function WhereSection() {
   return (
-    <SectionWrapper id="where" className="border-b border-slate-200 bg-slate-50">
-      <SectionHeader
-        label="02 · Куда идёте"
+    <Panel>
+      <PanelHeader
+        num="02"
         title="В США выигрывает не только тот, у кого лучше станок"
         subtitle="Выигрывает тот, кого находят первым, кто отвечает за минуты и выглядит как надёжный подрядчик с первого касания."
       />
 
-      <div className="grid gap-8 md:grid-cols-3">
+      <div className="grid gap-5 md:grid-cols-3">
         {whereColumns.map((col, i) => (
-          <FadeUp key={col.title} delay={i * 0.12}>
-            <div className="card h-full">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 text-sm font-bold text-indigo-600">
+          <FadeUp key={col.title} delay={i * 0.1}>
+            <div className="card-solid h-full">
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 text-sm font-bold text-amber-800">
                 {i + 1}
               </div>
               <h3 className="font-display text-lg font-semibold text-slate-900">{col.title}</h3>
@@ -27,41 +26,29 @@ export function WhereSection() {
         ))}
       </div>
 
-      <FadeUp className="mt-16">
+      <FadeUp className="mt-12">
         <ChainDiagram />
       </FadeUp>
-    </SectionWrapper>
+    </Panel>
   );
 }
 
 function ChainDiagram() {
   return (
-    <motion.div className="flex flex-col items-center gap-4 md:flex-row md:justify-between">
+    <div className="flex flex-col items-center gap-4 md:flex-row md:justify-between">
       {chainSteps.map((step, i) => (
         <div key={step} className="flex items-center gap-4 md:flex-1">
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.2, type: "spring" }}
-            className="flex flex-col items-center text-center"
-          >
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-600/30">
+          <div className="flex flex-col items-center text-center">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-800 text-sm font-bold text-white shadow-lg">
               {i + 1}
             </div>
             <p className="mt-2 max-w-[120px] text-xs font-medium text-slate-700">{step}</p>
-          </motion.div>
+          </div>
           {i < chainSteps.length - 1 && (
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 + 0.15, duration: 0.5 }}
-              className="hidden h-0.5 flex-1 origin-left bg-blue-300 md:block"
-            />
+            <div className="hidden h-0.5 flex-1 bg-amber-300/70 md:block" />
           )}
         </div>
       ))}
-    </motion.div>
+    </div>
   );
 }

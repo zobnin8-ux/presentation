@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className="font-sans antialiased">{children}</body>
+      <body className="h-screen overflow-hidden font-sans antialiased">{children}</body>
     </html>
   );
 }

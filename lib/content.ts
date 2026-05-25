@@ -8,31 +8,67 @@ export const siteConfig = {
   footer: "Подготовлено для GRC · Март 2026 · Конфиденциально",
 };
 
-export const navSections = [
-  { id: "hero", label: "Старт" },
-  { id: "who", label: "Кто вы" },
-  { id: "where", label: "US-рынок" },
-  { id: "pains", label: "Боли" },
-  { id: "infrastructure", label: "Ядро" },
-  { id: "system", label: "Система" },
-  { id: "modules", label: "Модули" },
-  { id: "demo", label: "Demo" },
-  { id: "roadmap", label: "План" },
-  { id: "author", label: "Автор" },
-  { id: "cta", label: "Вопросы" },
-];
+export const presentationSections = [
+  {
+    id: "who",
+    num: "01",
+    label: "Кто такой GRC",
+    subtitle: "Опыт, выезд, промышленность — без US и без IT",
+  },
+  {
+    id: "market",
+    num: "02",
+    label: "US-рынок",
+    subtitle: "Почему ваш формат совпадает с ожиданиями заказчика",
+  },
+  {
+    id: "pains",
+    num: "03",
+    label: "Боли",
+    subtitle: "Что ломается без системы — ещё до выезда бригады",
+  },
+  {
+    id: "system",
+    num: "04",
+    label: "Система",
+    subtitle: "Как всё работает: заявка → расчёт → CRM → выезд → память",
+  },
+  {
+    id: "plan",
+    num: "05",
+    label: "План",
+    subtitle: "10 модулей и этапы внедрения по месяцам",
+  },
+  {
+    id: "discuss",
+    num: "06",
+    label: "Обсудим",
+    subtitle: "Автор предложения и вопросы на разговор",
+  },
+] as const;
+
+export type PresentationSectionId = (typeof presentationSections)[number]["id"];
+
+export const shellIntro = {
+  title: "GRC → US",
+  tagline: "Предложение по выходу на американский рынок",
+  note: "Кликайте пункт слева — контент открывается справа",
+};
+
+/** @deprecated */
+export const navSections = presentationSections.map((s) => ({ id: s.id, label: s.label }));
 
 export const hero = {
-  badge: "Сервисная инфраструктура · выход GRC в США",
-  title: "Промышленный сервис нового уровня — вокруг уже работающего AI Estimator",
+  badge: "Выход GRC в США",
+  title: "Сервисная инфраструктура для американского рынка",
   subtitle:
-    "У компании уже есть сильный внутренний агент расчёта КП. Задача — выстроить вокруг него полноценную сервисную экосистему: от заявки до памяти компании и повторного контракта.",
+    "Предложение по системе, которая делает то же, что вы делаете на объекте — до и после выезда бригады: приём, CRM, выезд, отчёты, память компании.",
   bullets: [
-    "AI Estimator — не эксперимент, а рабочий инженерный инструмент внутри компании",
-    "Единая система вместо WhatsApp, PDF в почте и памяти отдельных инженеров",
-    "10 модулей инфраструктуры — приём, CRM, выезд, отчёты, история оборудования",
+    "Field-first: мобильные станки с ЧПУ, ремонт без демонтажа",
+    "Единая система вместо WhatsApp, PDF и памяти отдельных инженеров",
+    "10 модулей — от первой заявки до повторного контракта",
   ],
-  cta: "Листайте вниз — как это складывается в систему",
+  cta: "",
 };
 
 export const whoCards = [

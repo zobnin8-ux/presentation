@@ -6,7 +6,7 @@ import {
   modulesChapterB,
   modulesChapterC,
 } from "@/lib/content";
-import { FadeUp, SectionHeader, SectionWrapper } from "@/components/ui/Section";
+import { FadeUp, SectionHeader } from "@/components/ui/Section";
 import { ModuleMock } from "@/components/sections/ModuleMock";
 
 const chapters = [
@@ -33,16 +33,18 @@ const chapters = [
   },
 ];
 
-export function ModulesSection() {
+export function ModulesSection({ embedded = false }: { embedded?: boolean }) {
   return (
-    <SectionWrapper id="modules" className="bg-slate-50">
-      <SectionHeader
-        label="06 · Модули"
-        title="Инфраструктура вокруг Estimator — по порядку"
-        subtitle="10 модулей. Не IT-проект — рабочие инструменты, которые связывают расчёт, выезд и память компании."
-      />
+    <div className={embedded ? "" : "bg-slate-50"}>
+      {!embedded && (
+        <SectionHeader
+          label="06 · Модули"
+          title="Инфраструктура вокруг Estimator — по порядку"
+          subtitle="10 модулей. Не IT-проект — рабочие инструменты, которые связывают расчёт, выезд и память компании."
+        />
+      )}
 
-      <div className="space-y-16">
+      <div className="space-y-10">
         {chapters.map((chapter) => (
           <div key={chapter.label} className={`rounded-2xl border-t-4 p-6 md:p-8 ${chapter.color}`}>
             <p className={`text-xs font-bold uppercase tracking-wider ${chapter.accent}`}>
@@ -57,7 +59,7 @@ export function ModulesSection() {
                     <span className="pointer-events-none absolute -right-4 -top-6 font-display text-8xl font-bold text-slate-100">
                       {mod.num}
                     </span>
-                    <motion.div className="md:col-span-3">
+                    <div className="md:col-span-3">
                       <h3 className="font-display text-lg font-semibold text-slate-900">
                         {mod.num} {mod.title}
                       </h3>
@@ -75,7 +77,7 @@ export function ModulesSection() {
                           <span className="text-slate-600">{mod.result}</span>
                         </p>
                       </div>
-                    </motion.div>
+                    </div>
                     <div className="md:col-span-2">
                       <ModuleMock type={mod.mock} />
                     </div>
@@ -86,6 +88,6 @@ export function ModulesSection() {
           </div>
         ))}
       </div>
-    </SectionWrapper>
+    </div>
   );
 }

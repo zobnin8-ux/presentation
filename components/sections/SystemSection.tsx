@@ -8,25 +8,18 @@ import {
   commonPath,
   backgroundEngines,
 } from "@/lib/content";
-import { FadeUp, SectionHeader, SectionWrapper } from "@/components/ui/Section";
+import { FadeUp } from "@/components/ui/Section";
 import { ArrowDown, User, Cog, Zap, Clock } from "lucide-react";
 import clsx from "clsx";
 
 type Mode = "planned" | "emergency";
 
-export function SystemSection() {
+export function SystemSection({ embedded = false }: { embedded?: boolean }) {
   const [mode, setMode] = useState<Mode>("planned");
   const scenario = mode === "planned" ? scenarioPlanned : scenarioEmergency;
 
-  return (
-    <SectionWrapper id="system" className="bg-slate-900 text-white">
-      <SectionHeader
-        dark
-        label="05 · Как работает система"
-        title="Два сценария — одна инфраструктура"
-        subtitle="Переключите режим. Estimator в центре потока: intake → расчёт → CRM → выезд → память компании."
-      />
-
+  const body = (
+    <>
       <FadeUp>
         <div className="mb-10 flex flex-wrap justify-center gap-3">
           <button
@@ -185,6 +178,16 @@ export function SystemSection() {
           </div>
         </div>
       </FadeUp>
-    </SectionWrapper>
+    </>
   );
+
+  if (embedded) {
+    return (
+      <div className="overflow-hidden rounded-2xl bg-slate-900 p-6 text-white shadow-xl lg:p-8">
+        {body}
+      </div>
+    );
+  }
+
+  return body;
 }
