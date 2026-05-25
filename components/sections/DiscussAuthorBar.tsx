@@ -17,7 +17,7 @@ export function DiscussAuthorBar() {
             alt={author.name}
             width={64}
             height={64}
-            className="h-16 w-16 rounded-[10px] object-cover object-top"
+            className="h-16 w-16 rounded-[10px] object-cover object-center"
           />
         </div>
         <div className="min-w-0 flex-1">

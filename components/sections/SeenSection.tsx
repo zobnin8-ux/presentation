@@ -20,13 +20,13 @@ function AuthorSidebar() {
   return (
     <div className="lg:sticky lg:top-8 lg:self-start">
       <div className="rounded-2xl border-2 border-slate-200 bg-white p-5 shadow-sm">
-        <div className="overflow-hidden rounded-xl bg-gradient-to-br from-amber-600 to-slate-800 p-1 shadow-md">
+        <div className="mx-auto w-fit overflow-hidden rounded-xl bg-gradient-to-br from-amber-600 to-slate-800 p-1 shadow-md">
           <Image
             src={author.photo}
             alt={author.name}
-            width={120}
-            height={120}
-            className="h-[120px] w-full rounded-[10px] object-cover object-top"
+            width={140}
+            height={140}
+            className="h-36 w-36 rounded-[10px] object-cover object-center"
           />
         </div>
         <p className="mt-4 font-display text-lg font-bold text-slate-900">{author.name}</p>

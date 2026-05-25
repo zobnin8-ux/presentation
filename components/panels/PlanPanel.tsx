@@ -13,11 +13,6 @@ export function PlanPanel() {
           title={sectionHeaders.plan.title}
           subtitle={sectionHeaders.plan.subtitle}
         />
-        <FadeUp className="mt-6">
-          <p className="max-w-3xl text-base leading-relaxed text-slate-600">
-            {sectionHeaders.plan.intro}
-          </p>
-        </FadeUp>
       </Panel>
       <PlanSection />
     </div>
