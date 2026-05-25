@@ -17,7 +17,7 @@ export const presentationSections = [
     id: "seen",
     num: "00",
     label: "Что я увидел",
-    subtitle: "1grc.ru · выезд · кейсы · AI Estimator",
+    subtitle: "Аудит сайтов · черновики RU и US",
     group: "context",
   },
   {
@@ -76,13 +76,13 @@ export const shellIntro = {
 
 export const sectionHeaders = {
   seen: {
-    title: "Что я увидел на 1grc.ru — и почему это не типовой проект",
+    title: "Что я увидел — и что уже сделано до предложения",
     subtitle:
-      "Перед предложением — коротко: что уже есть у GRC и на какой модели строится система для США.",
+      "Анализ 1grc.ru и US-конкурента через Site Doctor, два demo-сайта. Дальше — выводы и система для США.",
     insight:
-      "GRC — не стартап и не «ещё один сайт». Выездной промышленный сервис с 2005 года: мобильные станки, ремонт на объекте, десятки отраслей, сотни реальных кейсов.",
+      "GRC — выездной промышленный сервис с 2005 года: станки, кейсы, AI Estimator внутри компании. Слабое место не в экспертизе — в том, как сайт и US-витрина продают ясность, доверие и первый контакт.",
     punchline:
-      "AI Estimator уже работает внутри компании. Задача — не придумать экспертизу, а обернуть её американской операционной системой.",
+      "Проанализировал их сайт и конкурента, собрал два demo. US-сайт — не отдельный маркетинг, а входная дверь в систему: contact → intake → AI Estimator → CRM.",
   },
   who: {
     title: "Не стартап. Промышленный выездной сервис — с 2005 года.",
@@ -135,6 +135,89 @@ export const sectionHeaders = {
   },
 } as const;
 
+export const siteAuditGrc = {
+  site: "www.1grc.ru",
+  siteUrl: "https://www.1grc.ru",
+  title: "Анализ основного сайта · Россия",
+  reportUrl: "https://www.sitedoctor.live/report/e3e1f683-224c-45b1-87f9-626b0a75c757",
+  score: 48,
+  status: "Требует внимания",
+  metrics: [
+    { label: "Доверие", value: 52 },
+    { label: "CTA", value: 55 },
+    { label: "Ясность", value: 38 },
+    { label: "Mobile", value: 58 },
+    { label: "SEO", value: 37 },
+  ],
+  findings: [
+    "Сильная структура ниже fold: навигация, формы, контакты — контент и кейсы на месте.",
+    "Первый экран не проходит «8-секундный тест»: непонятно, что именно чинят и для кого.",
+    "Hero «адаптивное производство» звучит как презентация, а не ответ директору завода с простоем.",
+    "Нет визуального доверия на главном экране; H1 не совпадает с заголовком экрана.",
+  ],
+  takeaway:
+    "Экспертиза на сайте есть — но витрина не продаёт ясность. Это не проблема цеха, это проблема первого экрана.",
+};
+
+export const siteDraftRu = {
+  title: "Черновик RU-сайта",
+  subtitle: "Переработка с учётом замечаний Site Doctor",
+  demoUrl: "https://grc-rus.vercel.app/",
+  points: [
+    "Конкретный hero: специализация, цех и выезд — не абстрактное «адаптивное производство».",
+    "Визуальное доверие на первом экране: работы, производство, понятный следующий шаг.",
+    "CTA и структура заголовков — ближе к тому, что рекомендовал аудит.",
+  ],
+  note: "Demo · контент и реквизиты уточняются с клиентом.",
+};
+
+export const siteAuditTiss = {
+  site: "tissinc.com",
+  siteUrl: "https://tissinc.com/",
+  title: "Анализ US-конкурента · TISS",
+  reportUrl: "https://www.sitedoctor.live/scanning/92586a27-c8b9-4824-a75d-f3579d3aa7fc",
+  score: 48,
+  status: "Требует внимания",
+  metrics: [
+    { label: "Доверие", value: 42 },
+    { label: "CTA", value: 25 },
+    { label: "Ясность", value: 55 },
+    { label: "Mobile", value: 62 },
+    { label: "Контент", value: 56 },
+  ],
+  findings: [
+    "Структура и телефон в шапке — понятная навигация по трём блокам услуг.",
+    "Критично: нет форм и CTA на страницах услуг — только телефон, лиды теряются.",
+    "Нет proof на главной: фото проектов, сертификаты, кейсы с цифрами.",
+    "«Leading provider» без доказательств; нет H1 и meta description.",
+  ],
+  takeaway:
+    "US-конкурент — ориентир рынка, не эталон. Окно для GRC: proof + emergency + форма intake с первого экрана.",
+};
+
+export const siteDraftUs = {
+  title: "Черновик US-сайта",
+  subtitle: "Houston · Gulf Coast · English only · demo",
+  demoUrl: "https://grc-eta.vercel.app/",
+  hero: "Industrial field operations & rapid response",
+  ctas: ["Request Field Support", "Emergency Response"],
+  pages: [
+    { path: "/", label: "Home — proof, capability strip, emergency" },
+    { path: "/services", label: "Services hub + 4 сильные service-страницы" },
+    { path: "/projects", label: "Projects · кейсы (demo: заглушки под ~6 EN)" },
+    { path: "/equipment", label: "Equipment · fleet" },
+    { path: "/service-area", label: "Service area · Gulf Coast" },
+    { path: "/contact", label: "Contact · intake gateway → система", highlight: true },
+  ],
+  vsCompetitor: [
+    "Proof и emergency на первом экране — не спрятаны в Shop.",
+    "Форма и CTA на каждом шаге — ответ на слабость TISS (CTA 25).",
+    "Не перевод 1grc.ru — отдельная US-модель field operations.",
+  ],
+  note: "Demo: LLC и телефон — placeholder · формы UI-only · кейсы и фото — от клиента.",
+};
+
+/** @deprecated — replaced by site audits and drafts in SeenSection */
 export const seenFindings = [
   {
     title: "Выездной ремонт на объекте",
