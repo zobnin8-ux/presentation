@@ -18,7 +18,7 @@ export function CtaSection() {
   return (
     <SectionWrapper id="cta" className="bg-gradient-to-b from-indigo-50/50 to-white pb-32">
       <SectionHeader
-        label="09 · Следующий шаг"
+        label="10 · Следующий шаг"
         title="Вопросы на наш разговор"
         subtitle="Откройте эту страницу перед созвоном. Приходите с вопросами — не с «расскажите ещё раз»."
       />

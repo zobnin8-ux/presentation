@@ -10,7 +10,7 @@ const icons = { truck: Truck, factory: Factory, layers: Layers, database: Databa
 
 export function WhoSection() {
   return (
-    <SectionWrapper id="who" className="bg-gradient-to-b from-white to-slate-50">
+    <SectionWrapper id="who" className="border-b border-slate-200 bg-white">
       <SectionHeader
         label="01 · Кто вы"
         title="Не стартап. Внешнее ремонтное подразделение — с 2005 года."

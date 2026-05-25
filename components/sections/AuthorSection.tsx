@@ -36,7 +36,7 @@ export function AuthorSection() {
   return (
     <SectionWrapper id="author" className="bg-gradient-to-b from-white to-slate-50">
       <SectionHeader
-        label="08 · Автор"
+        label="09 · Автор"
         title="Система спроектирована под ваш бизнес"
       />
 

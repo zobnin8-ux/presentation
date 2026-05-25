@@ -52,19 +52,27 @@ export function SectionHeader({
   label,
   title,
   subtitle,
+  dark,
 }: {
   label: string;
   title: string;
   subtitle?: string;
+  dark?: boolean;
 }) {
   return (
     <FadeUp className="mb-16 max-w-3xl">
-      <p className="section-label mb-4">{label}</p>
-      <h2 className="font-display text-3xl font-bold tracking-tight text-slate-900 md:text-4xl lg:text-5xl">
+      <p className={dark ? "section-label-dark mb-4" : "section-label mb-4"}>{label}</p>
+      <h2
+        className={`font-display text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl ${
+          dark ? "text-white" : "text-slate-900"
+        }`}
+      >
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-lg leading-relaxed text-slate-600">{subtitle}</p>
+        <p className={`mt-4 text-lg leading-relaxed ${dark ? "text-slate-300" : "text-slate-600"}`}>
+          {subtitle}
+        </p>
       )}
     </FadeUp>
   );

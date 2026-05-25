@@ -8,7 +8,7 @@ export function RoadmapSection() {
   return (
     <SectionWrapper id="roadmap">
       <SectionHeader
-        label="07 · Внедрение"
+        label="08 · Внедрение"
         title="Как это запускается — поэтапно, без хаоса"
         subtitle="Не всё сразу. Сначала фундамент — потом рост — потом масштаб."
       />

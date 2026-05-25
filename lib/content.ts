@@ -9,29 +9,30 @@ export const siteConfig = {
 };
 
 export const navSections = [
-  { id: "hero", label: "01" },
-  { id: "who", label: "02" },
-  { id: "where", label: "03" },
-  { id: "pains", label: "04" },
-  { id: "system", label: "05" },
-  { id: "modules", label: "06" },
-  { id: "demo", label: "07" },
-  { id: "roadmap", label: "08" },
-  { id: "author", label: "09" },
-  { id: "cta", label: "10" },
+  { id: "hero", label: "Старт" },
+  { id: "who", label: "Кто вы" },
+  { id: "where", label: "US-рынок" },
+  { id: "pains", label: "Боли" },
+  { id: "infrastructure", label: "Ядро" },
+  { id: "system", label: "Система" },
+  { id: "modules", label: "Модули" },
+  { id: "demo", label: "Demo" },
+  { id: "roadmap", label: "План" },
+  { id: "author", label: "Автор" },
+  { id: "cta", label: "Вопросы" },
 ];
 
 export const hero = {
-  badge: "Система автоматизации · выход GRC в США",
-  title: "Выездной ремонт тяжёлого оборудования — готовы к американскому рынку",
+  badge: "Сервисная инфраструктура · выход GRC в США",
+  title: "Промышленный сервис нового уровня — вокруг уже работающего AI Estimator",
   subtitle:
-    "20 лет мобильной металлообработки на объекте заказчика. Восемь модулей автоматизации, которые переносят ваш бизнес в США — от первой заявки до повторного контракта.",
+    "У компании уже есть сильный внутренний агент расчёта КП. Задача — выстроить вокруг него полноценную сервисную экосистему: от заявки до памяти компании и повторного контракта.",
   bullets: [
-    "Мобильные станки с ЧПУ — ремонт без демонтажа, где это возможно",
-    "Металлургия · ГОК · трубы · лес · прессы · краны · спецтехника",
-    "Приём заявок 24/7 · CRM под US · контент с 1grc.ru",
+    "AI Estimator — не эксперимент, а рабочий инженерный инструмент внутри компании",
+    "Единая система вместо WhatsApp, PDF в почте и памяти отдельных инженеров",
+    "10 модулей инфраструктуры — приём, CRM, выезд, отчёты, история оборудования",
   ],
-  cta: "Смотреть систему",
+  cta: "Листайте вниз — как это складывается в систему",
 };
 
 export const whoCards = [
@@ -53,7 +54,7 @@ export const whoCards = [
   {
     title: "То, что уже есть",
     icon: "database",
-    text: "50+ кейсов, десятки технических статей, отзывы крупнейших промышленных заказчиков. Готовый фундамент для US-маркетинга.",
+    text: "50+ кейсов, десятки технических статей, отзывы крупнейших промышленных заказчиков — и уже работающий AI Estimator: внутренний агент расчёта КП, который анализирует задачи и формирует предварительные оценки.",
     featured: true,
   },
 ];
@@ -106,31 +107,179 @@ export const pains = [
   },
 ];
 
+export const infrastructure = {
+  headline:
+    "Главная мысль — не «у компании есть AI», а «формируется современная сервисная инфраструктура промышленного уровня».",
+  estimatorTagline: "Мозг расчёта · уже работает внутри компании",
+  estimatorDesc:
+    "AI Estimator — центральный интеллектуальный модуль. Не чат-бот и не стартап-эксперимент, а инженерный инструмент: принимает структурированные данные, возвращает оценку, технологию и риски — и передаёт дальше в систему.",
+  estimatorCapabilities: [
+    "Анализ задачи по фото, размерам и чертежам",
+    "Подбор похожих кейсов из архива ремонтов",
+    "Оценка технологии ремонта и рисков",
+    "Формирование предварительной оценки (pre-estimate)",
+  ],
+};
+
+export const estimatorHub = {
+  center: { label: "AI Estimator", sub: "Агент расчёта КП" },
+  nodes: [
+    { id: "intake", label: "Поток заявок", desc: "Сайт · телефон · outreach", angle: 0 },
+    { id: "crm", label: "CRM", desc: "Карточка клиента · pipeline", angle: 60 },
+    { id: "object", label: "История объекта", desc: "Оборудование · прошлые ремонты", angle: 120 },
+    { id: "field", label: "Field Work", desc: "Фото · голос · данные с объекта", angle: 180 },
+    { id: "reports", label: "Auto-Report", desc: "PDF за 48 ч", angle: 240 },
+    { id: "memory", label: "Сервисная база", desc: "Архив · рекомендации", angle: 300 },
+  ],
+};
+
+export const serviceLifecycle = [
+  { step: 1, label: "Клиент обращается", desc: "Сайт · телефон · LinkedIn · emergency" },
+  {
+    step: 2,
+    label: "Система собирает данные",
+    desc: "Фото · размеры · чертежи · описание · голосовые комментарии",
+  },
+  { step: 3, label: "Данные → AI Estimator", desc: "Структурированный пакет, не переписка в WhatsApp", highlight: true },
+  {
+    step: 4,
+    label: "Estimator анализирует",
+    desc: "Похожие кейсы · технология · риски · pre-estimate",
+    highlight: true,
+  },
+  {
+    step: 5,
+    label: "Estimate не теряется",
+    desc: "Результат автоматически сохраняется в системе",
+  },
+  {
+    step: 6,
+    label: "→ CRM · клиент · объект · база",
+    desc: "Карточка клиента · история объекта · сервисная база · архив",
+  },
+  { step: 7, label: "Инженер получает задачу", desc: "Готовая структурированная карточка — не «разберись сам»" },
+  {
+    step: 8,
+    label: "Работа на объекте",
+    desc: "Фото · голос · замеры — всё сохраняется в систему",
+  },
+  { step: 9, label: "Auto PDF-отчёт", desc: "Клиент получает документ · данные в архиве" },
+  { step: 10, label: "Память компании", desc: "История остаётся внутри системы навсегда" },
+  {
+    step: 11,
+    label: "Повторное обращение",
+    desc: "Компания уже знает: что делали · какие проблемы · какие решения · рекомендации",
+  },
+];
+
+export const legacyVsSystem = {
+  legacy: {
+    title: "Сейчас — зависимость от фрагментов",
+    items: [
+      "Память отдельных инженеров",
+      "WhatsApp и личные переписки",
+      "Старые PDF без связи с объектом",
+      "Потерянные estimate после расчёта",
+      "Клиент звонит — никто не помнит прошлый ремонт",
+    ],
+  },
+  unified: {
+    title: "Цель — единая сервисная система",
+    items: [
+      "AI Estimator в центре расчёта",
+      "CRM + карточка объекта + сервисная база",
+      "Field data → отчёт → архив автоматически",
+      "История оборудования с первого экрана",
+      "Повторный заказ — с полным контекстом",
+    ],
+  },
+};
+
+export const scenarioPlanned = {
+  title: "Плановая заявка · 14:30",
+  clientSteps: [
+    "Пишет на сайт или звонит",
+    "Загружает фото, размеры, чертежи, голос",
+    "Получает ответ: «можем / нужны данные»",
+    "Scope → Quote → PO",
+    "Бригада на объекте",
+    "PDF-отчёт · история в базе",
+  ],
+  systemSteps: [
+    "① Intake 24/7 — сбор структурированного пакета",
+    "② AI Estimator · pre-estimate · похожие кейсы",
+    "③ → CRM · карточка объекта · сервисная база",
+    "Scope → Quote → PO в pipeline",
+    "⑦ Compliance → Field Work · данные с объекта",
+    "⑨ Auto-report → ⑩ Память компании",
+  ],
+};
+
+export const scenarioEmergency = {
+  title: "Авария · 2:47 ночи",
+  clientSteps: [
+    "Линия встала — звонит / пишет",
+    "Отправляет фото и описание",
+    "«Инженер через 15 минут»",
+    "Бригада мобилизована",
+    "Ремонт на объекте",
+    "Отчёт + история для следующего раза",
+  ],
+  systemSteps: [
+    "① Intake · классификация · сбор данных",
+    "② AI Estimator · ⚡ EMERGENCY · pre-estimate",
+    "SMS диспетчеру · карточка с полным пакетом",
+    "③ CRM · dispatch · история объекта",
+    "⑦ Compliance → Field Work",
+    "⑨ Auto-report → ⑩ Сервисная база",
+  ],
+};
+
+export const commonPath = [
+  { label: "AI Estimator", desc: "Расчёт · кейсы · риски", color: "purple" },
+  { label: "CRM + Объект", desc: "Карточка · pipeline · история", color: "blue" },
+  { label: "Field Work", desc: "Бригада + данные с объекта", color: "green" },
+  { label: "Память компании", desc: "Отчёт · архив · повтор", color: "purple" },
+];
+
+export const backgroundEngines = [
+  { label: "⑤ Контент", desc: "1grc.ru → US SEO · LinkedIn" },
+  { label: "⑥ Outreach", desc: "200 контактов / нед" },
+  { label: "⑦ Радар остановок", desc: "Outage за 3–6 мес" },
+];
+
 export const modulesChapterA = [
   {
     num: "①",
-    title: "Умный приём заявок — сайт и телефон",
-    pain: "Менеджер тратит 30–60 минут на телефоне. Ночью и в выходные — некому ответить.",
+    title: "Приём заявок 24/7 — сбор данных для Estimator",
+    pain: "Ночью некому ответить. Фото в WhatsApp, размеры в переписке, голос — в личке. Estimator не получает структурированный пакет.",
     solution:
-      "Чат- и голосовой агент 24/7. Собирает модель, симптомы, фото, чертежи, срочность, контакт. English + Spanish.",
-    result: "Инженер получает готовую карточку с вложениями — не «перезвоните».",
-    mock: "chat",
+      "Intake 24/7: собирает оборудование, симптомы, фото, размеры, чертежи, голосовые комментарии, срочность. English + Spanish. Передаёт в AI Estimator.",
+    result: "Estimator работает с данными, а не с хаосом переписки. Инженер получает готовую карточку.",
+    mock: "intake",
   },
   {
     num: "②",
-    title: "Аварийный простой — ответ за минуты",
-    pain: "При срочном простое заказчик звонит трём подрядчикам. Кто ответил первым — тот получил работу.",
+    title: "AI Estimator — агент расчёта КП (уже в компании)",
+    pain: "Estimate считается — и теряется в переписке. Инженер не видит похожие кейсы. Клиент ждёт дни.",
     solution:
-      "Emergency → SMS диспетчеру за 60 сек → автоответ клиенту с ETA → эскалация через 15 минут.",
-    result: "Клиент видит профессионализм с первой секунды. Аварийные выезды не теряются.",
-    mock: "timer",
+      "Существующий инженерный модуль: анализ задачи → похожие кейсы → технология ремонта → риски → pre-estimate. Результат сразу в CRM и сервисную базу.",
+    result: "Мозг расчёта в центре системы. Не эксперимент — рабочий инструмент, встроенный в инфраструктуру.",
+    mock: "estimate",
   },
   {
     num: "③",
+    title: "Emergency — ответ за минуты",
+    pain: "При простое заказчик звонит трём подрядчикам. Кто ответил первым — тот получил работу.",
+    solution: "Emergency → SMS диспетчеру за 60 сек → автоответ с ETA → эскалация через 15 мин.",
+    result: "Профессионализм с первой секунды. Аварийные выезды не теряются.",
+    mock: "timer",
+  },
+  {
+    num: "④",
     title: "CRM под US-рынок",
-    pain: "Между запросом и PO — месяцы. Переписка в WhatsApp и почте. Кто на какой стадии — непонятно.",
-    solution:
-      "Pipedrive или HubSpot. Inquiry → Scope → Quote → PO → Mobilized → Invoice. QuickBooks.",
+    pain: "Между запросом и PO — месяцы. Переписка в WhatsApp. Кто на какой стадии — непонятно.",
+    solution: "Pipedrive / HubSpot. Inquiry → Scope → Quote → PO → Mobilized → Invoice. QuickBooks.",
     result: "Полная картина по каждому клиенту. Видно, где сделки застревают.",
     mock: "pipeline",
   },
@@ -138,19 +287,19 @@ export const modulesChapterA = [
 
 export const modulesChapterB = [
   {
-    num: "④",
+    num: "⑤",
     title: "50+ кейсов с 1grc.ru → заявки из Google",
     pain: "Уникальные проекты лежат на русском сайте. US-инженер их не находит.",
-    solution: "Перевод + адаптация → US-сайт, LinkedIn, SEO под field machining запросы.",
+    solution: "Перевод + адапция → US-сайт, LinkedIn, SEO под field machining.",
     result: "Через 3–6 месяцев — органические заявки без оплаты за каждый клик.",
     mock: "translate",
   },
   {
-    num: "⑤",
+    num: "⑥",
     title: "Прямой выход на главных механиков",
     pain: "Шаблонные письма не работают — их фильтруют.",
     solution:
-      "База Maintenance Managers, Plant Engineers + персональные письма под их оборудование. 50–200 обращений в неделю.",
+      "Maintenance Managers, Plant Engineers + персональные письма под их оборудование. 50–200 / нед.",
     result: "Выход на людей, которые подписывают PO.",
     mock: "outreach",
   },
@@ -158,7 +307,7 @@ export const modulesChapterB = [
 
 export const modulesChapterC = [
   {
-    num: "⑥",
+    num: "⑦",
     title: "Радар плановых остановок",
     pain: "Капремонты планируют за 6–12 месяцев. Узнали поздно — подрядчики уже выбраны.",
     solution: "Мониторинг outage-графиков → outreach за 3–6 месяцев до даты.",
@@ -166,7 +315,7 @@ export const modulesChapterC = [
     mock: "radar",
   },
   {
-    num: "⑦",
+    num: "⑧",
     title: "Compliance Pack",
     pain: "Без COI и OSHA на площадку не пустят. Просроченная страховка = разворот бригады.",
     solution: "Автосборка пакета + трекинг сроков страховок.",
@@ -174,12 +323,22 @@ export const modulesChapterC = [
     mock: "compliance",
   },
   {
-    num: "⑧",
-    title: "After-Action Report",
-    pain: "Сделали ремонт — клиент молчит — звонит другому. Повторные заказы = основа выручки.",
-    solution: "PDF за 48 ч: фото до/после, замеры, технологии, гарантии.",
-    result: "Клиент помнит вас. Зовёт снова. Рекомендует коллегам.",
+    num: "⑨",
+    title: "Авто-отчёты с объекта",
+    pain: "Фото в WhatsApp, отчёт вручную, клиент ничего не получает.",
+    solution:
+      "На объекте: фото + голос + заметки → система собирает → PDF клиенту за 48 ч.",
+    result: "Доверие, повторные заказы. Инженер не пишет отчёт часами.",
     mock: "report",
+  },
+  {
+    num: "⑩",
+    title: "Память компании · сервисная база",
+    pain: "Опыт в головах людей. Ушёл инженер — потеряли историю объекта.",
+    solution:
+      "Единая база: объекты, ремонты, фото, размеры, PDF, рекомендации. Каждый инженер видит всё с первого экрана.",
+    result: "Опыт = система. Критично для US: documentation, continuity.",
+    mock: "knowledge",
   },
 ];
 
@@ -188,8 +347,8 @@ export const roadmap = [
     phase: "1",
     title: "Фундамент",
     period: "Месяц 1",
-    items: "AI-Intake · Emergency · CRM · US-сайт",
-    result: "Ни одна заявка не теряется. Аварийные выезды — с гарантированным откликом.",
+    items: "Intake → AI Estimator → CRM · Emergency",
+    result: "Estimator подключён к потоку заявок. Estimate не теряется — попадает в систему.",
   },
   {
     phase: "2",
@@ -202,34 +361,55 @@ export const roadmap = [
     phase: "3",
     title: "Масштаб",
     period: "Месяц 4–6",
-    items: "Радар · Compliance · Reports",
-    result: "Крупные остановки. Без срывов из-за документов. Повторные заказы.",
+    items: "Радар · Compliance · Отчёты · База знаний",
+    result: "Крупные остановки. Повторные заказы. Опыт не теряется.",
   },
 ];
 
 export const ctaQuestions = [
+  "AI Estimator — какие типы оборудования уже закрыты? Что подключаем к US-потоку первым?",
   "Кому уходит emergency SMS — один диспетчер или ротация?",
   "Какие 20 кейсов с 1grc.ru переводим первыми?",
   "Pipedrive или HubSpot — кто будет работать в CRM?",
-  "Испанский intake — нужен с первого дня?",
   "Что должно работать через 30 дней? Через 90?",
   "Кто на вашей стороне — decision maker по запуску?",
 ];
 
 export const demoSteps = [
-  { role: "client", text: "Emergency. Jaw crusher down. Production stopped. Texas." },
-  { role: "ai", text: "Understood. What equipment model? Can you send photos?" },
-  { role: "client", text: "Metso C125. Shaft bearing seat damaged. Photos attached." },
-  { role: "system", text: "⚡ EMERGENCY · Classified · Card created" },
-  { role: "sms", text: "🚨 New emergency · Metso C125 · Texas · Photos attached" },
-  { role: "auto", text: "An engineer will contact you within 15 minutes. Ref #GR-2026-0847" },
+  {
+    role: "intake",
+    panel: "intake",
+    text: "Заявка #GR-0847 · Metso C125 · Texas · EMERGENCY",
+    detail: "Фото ×3 · чертёж посадки · голос 0:42 · размеры",
+  },
+  {
+    role: "estimator",
+    panel: "estimator",
+    text: "AI Estimator · анализ задачи",
+    detail: "3 похожих кейса · расточка посадки · риск: средний",
+  },
+  {
+    role: "estimator",
+    panel: "estimator",
+    text: "Pre-estimate сформирован",
+    detail: "2 смены · мобильная расточка · уверенность 95%",
+  },
+  {
+    role: "system",
+    panel: "crm",
+    text: "→ CRM · Texas Plant #4 · история 2024–2026",
+    detail: "Карточка объекта · pipeline · архив ремонтов",
+  },
+  {
+    role: "sms",
+    panel: "dispatch",
+    text: "🚨 Dispatch · инженер видит полный пакет",
+    detail: "Estimate + фото + кейсы + compliance checklist",
+  },
+  {
+    role: "auto",
+    panel: "dispatch",
+    text: "Структурированная задача готова · ETA 15 мин",
+    detail: "Клиенту: Ref #GR-0847 · инженер свяжется",
+  },
 ];
-
-export const systemNodes = {
-  inputs: ["Сайт", "Телефон 24/7", "LinkedIn", "Outreach", "SEO"],
-  parallel: [
-    { id: "4", label: "④ Контент", desc: "1grc.ru → US SEO" },
-    { id: "5", label: "⑤ Outreach", desc: "200 контактов/нед" },
-    { id: "6", label: "⑥ Радар", desc: "Outage за 3–6 мес" },
-  ],
-};

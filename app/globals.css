@@ -102,13 +102,21 @@ body {
 }
 
 .section-label {
-  @apply text-xs font-semibold uppercase tracking-[0.12em] text-blue-600;
+  @apply text-xs font-bold uppercase tracking-[0.14em] text-blue-600;
+}
+
+.section-label-dark {
+  @apply text-xs font-bold uppercase tracking-[0.14em] text-blue-400;
 }
 
 .card {
-  @apply rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(15,23,42,0.06)] transition-all duration-300;
+  @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_8px_30px_rgba(15,23,42,0.08)] transition-all duration-300;
+}
+
+.card-solid {
+  @apply rounded-2xl border-2 border-slate-300 bg-white p-6 shadow-[0_12px_40px_rgba(15,23,42,0.12)];
 }
 
 .card:hover {
-  @apply -translate-y-1 shadow-[0_8px_32px_rgba(15,23,42,0.1)];
+  @apply -translate-y-0.5 shadow-[0_16px_48px_rgba(15,23,42,0.14)] border-slate-300;
 }

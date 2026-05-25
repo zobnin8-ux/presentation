@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { WhoSection } from "@/components/sections/WhoSection";
 import { WhereSection } from "@/components/sections/WhereSection";
 import { PainsSection } from "@/components/sections/PainsSection";
+import { InfrastructureSection } from "@/components/sections/InfrastructureSection";
 import { SystemSection } from "@/components/sections/SystemSection";
 import { ModulesSection } from "@/components/sections/ModulesSection";
 import { DemoSection } from "@/components/sections/DemoSection";
@@ -22,6 +23,7 @@ export default function Home() {
         <WhoSection />
         <WhereSection />
         <PainsSection />
+        <InfrastructureSection />
         <SystemSection />
         <ModulesSection />
         <DemoSection />

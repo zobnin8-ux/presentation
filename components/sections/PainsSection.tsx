@@ -9,7 +9,7 @@ const icons = [PhoneOff, Search, FileX];
 
 export function PainsSection() {
   return (
-    <SectionWrapper id="pains">
+    <SectionWrapper id="pains" className="border-b-4 border-red-500 bg-red-50/80">
       <SectionHeader
         label="03 · Без системы"
         title="Что ломается при выходе в США без автоматизации"
@@ -26,16 +26,15 @@ export function PainsSection() {
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15, duration: 0.5 }}
-                className="flex gap-5 rounded-2xl border border-red-100 bg-white p-6 shadow-sm"
-                style={{ borderLeftWidth: 4, borderLeftColor: "#FECACA" }}
+                className="card-solid flex gap-5 border-l-4 border-l-red-500"
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-500">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100 text-red-600">
                   <Icon className="h-5 w-5" />
                 </div>
-                <motion.div>
+                <div>
                   <h3 className="font-display text-lg font-semibold text-slate-900">{pain.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{pain.text}</p>
-                </motion.div>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-700">{pain.text}</p>
+                </div>
               </motion.div>
             </FadeUp>
           );
@@ -44,8 +43,9 @@ export function PainsSection() {
 
       <FadeUp className="mt-12 text-center">
         <p className="text-lg font-medium text-slate-700">
-          Все три проблемы решаются <span className="text-blue-600">одной системой</span> — не тремя
-          разными людьми.
+          Решение — не «ещё один AI», а{" "}
+          <span className="text-blue-600">сервисная инфраструктура</span> вокруг уже работающего
+          Estimator.
         </p>
       </FadeUp>
     </SectionWrapper>

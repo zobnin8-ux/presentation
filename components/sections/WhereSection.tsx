@@ -6,7 +6,7 @@ import { FadeUp, SectionHeader, SectionWrapper } from "@/components/ui/Section";
 
 export function WhereSection() {
   return (
-    <SectionWrapper id="where" className="bg-gradient-to-b from-slate-50 to-indigo-50/30">
+    <SectionWrapper id="where" className="border-b border-slate-200 bg-slate-50">
       <SectionHeader
         label="02 · Куда идёте"
         title="В США выигрывает не только тот, у кого лучше станок"

@@ -6,14 +6,10 @@ import { hero } from "@/lib/content";
 import { FadeUp } from "@/components/ui/Section";
 
 export function HeroSection() {
-  const scrollToSystem = () => {
-    document.getElementById("system")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center overflow-hidden px-6 pt-20"
+      className="relative flex min-h-[calc(100vh-56px)] items-center overflow-hidden border-b border-slate-200 bg-gradient-to-b from-white to-slate-100 px-6"
     >
       <motion.div
         className="pointer-events-none absolute -right-32 top-20 h-96 w-96 rounded-full bg-blue-200/30 blur-[120px]"
@@ -63,14 +59,14 @@ export function HeroSection() {
             </ul>
           </FadeUp>
           <FadeUp delay={0.5}>
-            <button
-              onClick={scrollToSystem}
-              className="mt-10 inline-flex items-center gap-2 rounded-full bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700 hover:shadow-blue-600/40"
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              className="mt-10 flex items-center gap-2 text-sm font-medium text-slate-500"
             >
+              <ChevronDown className="h-5 w-5 text-blue-600" />
               {hero.cta}
-              <ChevronDown className="h-4 w-4" />
-            </button>
-            <p className="mt-3 text-xs text-slate-400">~6 минут · одна страница</p>
+            </motion.div>
           </FadeUp>
         </div>
 

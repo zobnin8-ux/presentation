@@ -14,7 +14,7 @@ const chapters = [
     label: "Глава A · Месяц 1 · Фундамент",
     color: "border-blue-500 bg-blue-50/50",
     accent: "text-blue-700",
-    intro: "Пока нет приёма заявок и CRM — любой маркетинг сливают бюджет. Это запускается первым.",
+    intro: "Estimator уже есть — подключаем поток заявок, CRM и память компании. Без этого estimate теряется после расчёта.",
     modules: modulesChapterA,
   },
   {
@@ -37,9 +37,9 @@ export function ModulesSection() {
   return (
     <SectionWrapper id="modules" className="bg-slate-50">
       <SectionHeader
-        label="05 · Модули"
-        title="Что автоматизируем — по порядку приоритета"
-        subtitle="Не IT-проект, а рабочие инструменты для продаж, выезда и удержания клиентов в США."
+        label="06 · Модули"
+        title="Инфраструктура вокруг Estimator — по порядку"
+        subtitle="10 модулей. Не IT-проект — рабочие инструменты, которые связывают расчёт, выезд и память компании."
       />
 
       <div className="space-y-16">

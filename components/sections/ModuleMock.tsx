@@ -30,9 +30,12 @@ export function ModuleMock({ type }: { type: string }) {
     if (!visible) return;
     const configs: Record<string, { max: number; ms: number }> = {
       chat: { max: 3, ms: 800 },
+      intake: { max: 4, ms: 700 },
       timer: { max: 13, ms: 200 },
+      estimate: { max: 3, ms: 800 },
       pipeline: { max: 4, ms: 600 },
       report: { max: 2, ms: 700 },
+      knowledge: { max: 2, ms: 700 },
     };
     const cfg = configs[type];
     if (!cfg) return;
@@ -47,6 +50,28 @@ export function ModuleMock({ type }: { type: string }) {
       id={`mock-${type}`}
       className="flex h-44 items-center justify-center rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200"
     >
+      {type === "intake" && (
+        <div className="w-full space-y-2 text-left text-[10px]">
+          <p className="font-bold text-slate-700">Intake · структурированный пакет</p>
+          {[
+            "Metso C125 · Texas Plant #4",
+            "Фото ×3 · чертёж посадки",
+            "Размеры · голос 0:42",
+            "→ передача в AI Estimator",
+          ].map((row, i) => (
+            <motion.div
+              key={row}
+              animate={{ opacity: step >= i ? 1 : 0.25 }}
+              className={`rounded px-2 py-1 ring-1 ${
+                i === 3 ? "bg-blue-50 font-semibold text-blue-700 ring-blue-200" : "bg-white text-slate-600 ring-slate-200"
+              }`}
+            >
+              {step >= i ? row : "…"}
+            </motion.div>
+          ))}
+        </div>
+      )}
+
       {type === "chat" && (
         <div className="w-full space-y-2">
           {chatMessages.slice(0, step + 1).map((m, i) => (
@@ -160,6 +185,53 @@ export function ModuleMock({ type }: { type: string }) {
               📄 {doc}
             </motion.div>
           ))}
+        </div>
+      )}
+
+      {type === "estimate" && (
+        <div className="w-full space-y-1.5 text-left">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-1">
+            <p className="text-[10px] font-bold text-slate-800">AI Estimator · Metso C125</p>
+            <span className="rounded bg-blue-600 px-1.5 py-0.5 text-[8px] font-bold text-white">
+              LIVE
+            </span>
+          </div>
+          {[
+            { label: "Похожие кейсы", val: "3 из архива · расточка посадки", i: 0 },
+            { label: "Технология", val: "Мобильная расточка · 2 смены", i: 1 },
+            { label: "Риски", val: "Средний · доступ к узлу OK", i: 2 },
+            { label: "Pre-estimate", val: "95% · → CRM + база", i: 3 },
+          ].map((row) => (
+            <motion.div
+              key={row.label}
+              animate={{ opacity: step >= row.i ? 1 : 0.3 }}
+              className={`rounded px-2 py-1 text-[9px] ${
+                row.i === 3
+                  ? "bg-emerald-50 font-semibold text-emerald-800 ring-1 ring-emerald-200"
+                  : "bg-slate-100 text-slate-700"
+              }`}
+            >
+              <span className="font-semibold">{row.label}: </span>
+              {step >= row.i ? row.val : "…"}
+            </motion.div>
+          ))}
+        </div>
+      )}
+
+      {type === "knowledge" && (
+        <div className="w-full text-left text-[10px]">
+          <p className="mb-2 font-bold text-violet-700">Объект: Texas Plant #4</p>
+          {["2024 · расточка вала", "2025 · flange facing", "2026 · emergency C125"].map(
+            (row, i) => (
+              <motion.div
+                key={row}
+                animate={{ opacity: step >= i ? 1 : 0.3 }}
+                className="mb-1 rounded bg-violet-50 px-2 py-1 text-violet-800 ring-1 ring-violet-200"
+              >
+                {row}
+              </motion.div>
+            )
+          )}
         </div>
       )}
 

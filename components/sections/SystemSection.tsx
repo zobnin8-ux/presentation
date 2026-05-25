@@ -1,179 +1,190 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
-import { systemNodes } from "@/lib/content";
-import { SectionHeader } from "@/components/ui/Section";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  scenarioPlanned,
+  scenarioEmergency,
+  commonPath,
+  backgroundEngines,
+} from "@/lib/content";
+import { FadeUp, SectionHeader, SectionWrapper } from "@/components/ui/Section";
+import { ArrowDown, User, Cog, Zap, Clock } from "lucide-react";
 import clsx from "clsx";
 
+type Mode = "planned" | "emergency";
+
 export function SystemSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const activeStep = useTransform(scrollYProgress, [0, 1], [0, 9]);
-  const pulseWidth = useTransform(scrollYProgress, [0, 0.85], ["0%", "100%"]);
-  const footerOpacity = useTransform(scrollYProgress, [0.8, 0.95], [0, 1]);
-  const parallelOpacity = useTransform(scrollYProgress, [0.7, 0.85], [0, 1]);
+  const [mode, setMode] = useState<Mode>("planned");
+  const scenario = mode === "planned" ? scenarioPlanned : scenarioEmergency;
 
   return (
-    <section id="system" ref={containerRef} className="relative h-[280vh]">
-      <motion.div className="sticky top-0 flex h-screen items-center overflow-hidden bg-gradient-to-b from-indigo-50/80 to-white px-6 py-16">
-        <div className="mx-auto w-full max-w-4xl">
-          <SectionHeader
-            label="04 · Архитектура"
-            title="Единая система: от заявки до повторного заказа"
-            subtitle="8 модулей. Одна логика. Построено под выездной ремонт в США."
-          />
+    <SectionWrapper id="system" className="bg-slate-900 text-white">
+      <SectionHeader
+        dark
+        label="05 · Как работает система"
+        title="Два сценария — одна инфраструктура"
+        subtitle="Переключите режим. Estimator в центре потока: intake → расчёт → CRM → выезд → память компании."
+      />
 
-          <div className="relative mt-6 max-h-[58vh] overflow-y-auto rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-xl backdrop-blur md:p-6">
-            <motion.div
-              className="absolute left-0 top-0 h-1 rounded-t-2xl bg-blue-600"
-              style={{ width: pulseWidth }}
-            />
-
-            <div className="flex flex-wrap justify-center gap-2">
-              {systemNodes.inputs.map((input) => (
-                <span
-                  key={input}
-                  className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
-                >
-                  {input}
-                </span>
-              ))}
-            </div>
-
-            <VerticalLine progress={scrollYProgress} start={0.05} end={0.12} />
-            <AnimatedNode progress={scrollYProgress} at={0.12}>
-              <NodeCard title="① AI-Intake" subtitle="EN + ES · чат + голос" highlight />
-            </AnimatedNode>
-
-            <VerticalLine progress={scrollYProgress} start={0.15} end={0.22} />
-            <p className="my-2 text-center text-xs font-medium text-slate-400">Срочность?</p>
-
-            <div className="grid grid-cols-2 gap-3">
-              <AnimatedNode progress={scrollYProgress} at={0.25}>
-                <NodeCard title="② Emergency" subtitle="SMS 60 сек" emergency />
-              </AnimatedNode>
-              <AnimatedNode progress={scrollYProgress} at={0.28}>
-                <NodeCard title="③ CRM US" subtitle="Pipeline · QuickBooks" highlight />
-              </AnimatedNode>
-            </div>
-
-            <VerticalLine progress={scrollYProgress} start={0.32} end={0.38} />
-            <AnimatedNode progress={scrollYProgress} at={0.38}>
-              <NodeCard title="Scope → Quote → PO" muted />
-            </AnimatedNode>
-
-            <VerticalLine progress={scrollYProgress} start={0.42} end={0.48} />
-            <AnimatedNode progress={scrollYProgress} at={0.48}>
-              <NodeCard title="⑦ Compliance Pack" subtitle="COI · OSHA" highlight />
-            </AnimatedNode>
-
-            <VerticalLine progress={scrollYProgress} start={0.52} end={0.58} />
-            <AnimatedNode progress={scrollYProgress} at={0.58}>
-              <NodeCard title="Field Work" subtitle="Выезд + станок" field />
-            </AnimatedNode>
-
-            <VerticalLine progress={scrollYProgress} start={0.62} end={0.68} />
-            <AnimatedNode progress={scrollYProgress} at={0.68}>
-              <NodeCard title="⑧ After-Action Report" subtitle="PDF за 48 ч" highlight />
-            </AnimatedNode>
-
-            <motion.div className="mt-6 border-t border-slate-100 pt-4" style={{ opacity: parallelOpacity }}>
-              <p className="mb-2 text-center text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-                Постоянно в фоне
-              </p>
-              <div className="flex flex-wrap justify-center gap-2">
-                {systemNodes.parallel.map((node) => (
-                  <div
-                    key={node.id}
-                    className="rounded-lg border border-purple-200 bg-purple-50 px-3 py-1.5 text-center"
-                  >
-                    <p className="text-[11px] font-semibold text-purple-800">{node.label}</p>
-                    <p className="text-[9px] text-purple-600">{node.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-
-          <motion.p className="mt-4 text-center text-sm text-slate-500" style={{ opacity: footerOpacity }}>
-            Модули ①②③ — фундамент · ④⑤ — приток · ⑥⑦⑧ — масштаб и повтор
-          </motion.p>
+      <FadeUp>
+        <div className="mb-10 flex flex-wrap justify-center gap-3">
+          <button
+            onClick={() => setMode("planned")}
+            className={clsx(
+              "flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-all",
+              mode === "planned"
+                ? "bg-blue-600 text-white shadow-lg shadow-blue-600/40 ring-2 ring-blue-400"
+                : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+            )}
+          >
+            <Clock className="h-4 w-4" />
+            Плановая заявка · 14:30
+          </button>
+          <button
+            onClick={() => setMode("emergency")}
+            className={clsx(
+              "flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-all",
+              mode === "emergency"
+                ? "bg-amber-500 text-slate-900 shadow-lg shadow-amber-500/40 ring-2 ring-amber-300 animate-pulse"
+                : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+            )}
+          >
+            <Zap className="h-4 w-4" />
+            Авария · 2:47 ночи
+          </button>
         </div>
-      </motion.div>
-    </section>
-  );
-}
 
-function VerticalLine({
-  progress,
-  start,
-  end,
-}: {
-  progress: MotionValue<number>;
-  start: number;
-  end: number;
-}) {
-  const height = useTransform(progress, [start, end], ["0%", "100%"]);
-  return (
-    <div className="relative mx-auto my-1 h-4 w-0.5 overflow-hidden bg-slate-200">
-      <motion.div className="absolute bottom-0 w-full bg-blue-500" style={{ height }} />
-    </div>
-  );
-}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={mode}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.35 }}
+            className="overflow-hidden rounded-2xl border-2 border-slate-700 bg-slate-800/80 shadow-2xl"
+          >
+            <div className="border-b border-slate-700 bg-slate-800 px-6 py-4 text-center">
+              <p className="text-lg font-bold">{scenario.title}</p>
+            </div>
 
-function AnimatedNode({
-  progress,
-  at,
-  children,
-}: {
-  progress: MotionValue<number>;
-  at: number;
-  children: React.ReactNode;
-}) {
-  const opacity = useTransform(progress, [at - 0.05, at], [0.3, 1]);
-  const scale = useTransform(progress, [at, at + 0.08], [1, 1.03]);
+            <p className="border-b border-slate-700 bg-slate-800/50 px-6 py-2 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Откуда приходит заявка: Сайт · Телефон 24/7 · LinkedIn · Outreach · SEO
+            </p>
 
-  return (
-    <motion.div style={{ opacity, scale }} className="my-1">
-      {children}
-    </motion.div>
-  );
-}
+            <div className="grid md:grid-cols-2">
+              <div className="border-b border-slate-700 p-6 md:border-b-0 md:border-r">
+                <div className="mb-4 flex items-center gap-2 text-emerald-400">
+                  <User className="h-5 w-5" />
+                  <span className="text-sm font-bold uppercase tracking-wide">Клиент видит</span>
+                </div>
+                <ol className="space-y-3">
+                  {scenario.clientSteps.map((step, i) => (
+                    <motion.li
+                      key={step}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.08 }}
+                      className="flex gap-3 rounded-lg bg-slate-900/60 p-3 ring-1 ring-slate-600"
+                    >
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-xs font-bold">
+                        {i + 1}
+                      </span>
+                      <span className="text-sm leading-snug text-slate-200">{step}</span>
+                    </motion.li>
+                  ))}
+                </ol>
+              </div>
 
-function NodeCard({
-  title,
-  subtitle,
-  highlight,
-  emergency,
-  field,
-  muted,
-}: {
-  title: string;
-  subtitle?: string;
-  highlight?: boolean;
-  emergency?: boolean;
-  field?: boolean;
-  muted?: boolean;
-}) {
-  return (
-    <motion.div
-      className={clsx(
-        "rounded-xl border-2 px-3 py-2.5 text-center",
-        highlight && "border-blue-500 bg-blue-50",
-        emergency && "border-amber-400 bg-amber-50",
-        field && "border-emerald-500 bg-emerald-50",
-        muted && "border-slate-200 bg-slate-50",
-        !highlight && !emergency && !field && !muted && "border-slate-200 bg-white"
-      )}
-      whileHover={{ scale: 1.02 }}
-    >
-      <p className="text-xs font-semibold text-slate-900 md:text-sm">{title}</p>
-      {subtitle && <p className="mt-0.5 text-[10px] text-slate-500 md:text-xs">{subtitle}</p>}
-    </motion.div>
+              <div className="p-6">
+                <div className="mb-4 flex items-center gap-2 text-blue-400">
+                  <Cog className="h-5 w-5" />
+                  <span className="text-sm font-bold uppercase tracking-wide">Система делает</span>
+                </div>
+                <ol className="space-y-3">
+                  {scenario.systemSteps.map((step, i) => (
+                    <motion.li
+                      key={step}
+                      initial={{ opacity: 0, x: 12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.08 }}
+                      className={clsx(
+                        "flex gap-3 rounded-lg p-3 ring-1",
+                        step.includes("EMERGENCY") || step.includes("SMS")
+                          ? "bg-amber-500/15 ring-amber-500/50"
+                          : step.includes("Estimator")
+                            ? "bg-violet-500/20 ring-violet-400/50"
+                            : "bg-blue-600/10 ring-blue-500/40"
+                      )}
+                    >
+                      <span
+                        className={clsx(
+                          "flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold",
+                          step.includes("EMERGENCY") || step.includes("SMS")
+                            ? "bg-amber-500 text-slate-900"
+                            : step.includes("Estimator")
+                              ? "bg-violet-500 text-white"
+                              : "bg-blue-600 text-white"
+                        )}
+                      >
+                        {i + 1}
+                      </span>
+                      <span className="text-sm font-semibold leading-snug text-white">{step}</span>
+                    </motion.li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="my-8 flex justify-center">
+          <ArrowDown className="h-8 w-8 text-blue-500" />
+        </div>
+
+        <div className="rounded-2xl border-2 border-blue-500/50 bg-gradient-to-r from-blue-950 to-slate-900 p-6">
+          <p className="mb-4 text-center text-xs font-bold uppercase tracking-widest text-blue-400">
+            Общий путь — оба сценария сходятся здесь
+          </p>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {commonPath.map((step, i) => (
+              <motion.div
+                key={step.label}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className={clsx(
+                  "rounded-xl p-4 text-center ring-2",
+                  step.color === "green" && "bg-emerald-600 ring-emerald-400",
+                  step.color === "blue" && "bg-blue-600 ring-blue-400",
+                  step.color === "purple" && "bg-violet-600 ring-violet-400"
+                )}
+              >
+                <p className="font-display text-sm font-bold text-white">{step.label}</p>
+                <p className="mt-1 text-xs text-white/80">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 rounded-2xl border border-violet-500/40 bg-violet-950/50 p-6">
+          <p className="mb-4 text-center text-xs font-bold uppercase tracking-widest text-violet-300">
+            Постоянно в фоне — не ждут заявки
+          </p>
+          <div className="grid gap-3 md:grid-cols-3">
+            {backgroundEngines.map((eng) => (
+              <div
+                key={eng.label}
+                className="rounded-xl bg-violet-900/60 px-4 py-3 text-center ring-1 ring-violet-500/50"
+              >
+                <p className="font-bold text-violet-100">{eng.label}</p>
+                <p className="mt-1 text-xs text-violet-300">{eng.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </FadeUp>
+    </SectionWrapper>
   );
 }
