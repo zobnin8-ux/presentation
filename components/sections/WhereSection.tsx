@@ -13,19 +13,19 @@ export function WhereSection() {
         subtitle="Выигрывает тот, кого находят первым, кто отвечает за минуты и выглядит как надёжный подрядчик с первого касания."
       />
 
-      <motion.div className="grid gap-8 md:grid-cols-3">
+      <div className="grid gap-8 md:grid-cols-3">
         {whereColumns.map((col, i) => (
           <FadeUp key={col.title} delay={i * 0.12}>
             <div className="card h-full">
               <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 text-sm font-bold text-indigo-600">
                 {i + 1}
-              </motion.div>
+              </div>
               <h3 className="font-display text-lg font-semibold text-slate-900">{col.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{col.text}</p>
             </div>
           </FadeUp>
         ))}
-      </motion.div>
+      </div>
 
       <FadeUp className="mt-16">
         <ChainDiagram />

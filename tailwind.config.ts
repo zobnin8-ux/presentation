@@ -14,8 +14,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        sans: ["Segoe UI", "system-ui", "-apple-system", "sans-serif"],
+        display: ["Segoe UI", "system-ui", "-apple-system", "sans-serif"],
       },
       animation: {
         marquee: "marquee 40s linear infinite",

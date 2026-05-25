@@ -72,11 +72,11 @@ export function HeroSection() {
             </button>
             <p className="mt-3 text-xs text-slate-400">~6 минут · одна страница</p>
           </FadeUp>
-        </motion.div>
+        </div>
 
         <div className="relative flex items-center justify-center">
           <MigrationMap />
-        </motion.div>
+        </div>
       </motion.div>
 
       <motion.div
@@ -179,12 +179,12 @@ function MigrationMap() {
             {tag}
           </motion.span>
         ))}
-      </motion.div>
+      </div>
 
       <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
         <MapPin className="h-3.5 w-3.5" />
         Mobile CNC · On-site repair
       </div>
-    </motion.div>
+    </div>
   );
 }

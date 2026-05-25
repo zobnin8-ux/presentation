@@ -85,7 +85,7 @@ export function ModulesSection() {
             </div>
           </div>
         ))}
-      </motion.div>
+      </div>
     </SectionWrapper>
   );
 }

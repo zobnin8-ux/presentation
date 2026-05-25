@@ -75,8 +75,8 @@ export function Navigation() {
                   {label}
                 </button>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </motion.nav>
       )}
     </AnimatePresence>
