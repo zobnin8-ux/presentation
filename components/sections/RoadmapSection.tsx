@@ -53,8 +53,8 @@ export function RoadmapSection({ embedded = false }: { embedded?: boolean }) {
             Быстрый старт — 3–4 недели
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            AI-intake + CRM с правильным pipeline + 20 переведённых кейсов + запуск outreach.
-            Минимум, с которого система уже работает.
+            Приём заявок (intake) + AI Estimator + CRM с правильной воронкой (pipeline) + 20 переведённых
+            кейсов + запуск прямого контакта (outreach). Минимум, с которого система уже работает.
           </p>
         </div>
       </FadeUp>

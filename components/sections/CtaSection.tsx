@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ctaQuestions, siteConfig } from "@/lib/content";
-import { FadeUp } from "@/components/ui/Section";
+import { ctaQuestions, sectionHeaders, siteConfig } from "@/lib/content";
+import { Callout, FadeUp } from "@/components/ui/Section";
 import { HelpCircle, Check } from "lucide-react";
 
 export function CtaSection({ embedded = false }: { embedded?: boolean }) {
@@ -40,21 +40,38 @@ export function CtaSection({ embedded = false }: { embedded?: boolean }) {
         ))}
       </div>
 
-      <FadeUp className="mt-12 text-center">
-        <h2 className="font-display text-2xl font-bold leading-snug text-slate-900">
-          Вы чините на объекте. Система чинит всё до и после выезда — чтобы в США вас находили,
-          отвечали за минуты и возвращались снова.
-        </h2>
+      <FadeUp className="mt-12 space-y-6">
+        <Callout variant="punchline">{sectionHeaders.discuss.punchline}</Callout>
+        <Callout variant="warning">{sectionHeaders.discuss.warning}</Callout>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm text-slate-600">
-          <a href={`mailto:${siteConfig.author.email}`} className="hover:text-amber-700">
+        <div className="flex flex-wrap items-center justify-center gap-4 pt-2 text-sm">
+          <a
+            href={`mailto:${siteConfig.author.email}`}
+            className="font-medium text-slate-700 hover:text-amber-700"
+          >
             {siteConfig.author.email}
           </a>
-          <span>·</span>
-          <span>{siteConfig.author.telegram}</span>
+          <span className="text-slate-300">·</span>
+          <a
+            href={siteConfig.author.telegram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-slate-700 hover:text-amber-700"
+          >
+            {siteConfig.author.telegramLabel}
+          </a>
+          <span className="text-slate-300">·</span>
+          <a
+            href={siteConfig.author.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-slate-700 hover:text-amber-700"
+          >
+            {siteConfig.author.websiteLabel}
+          </a>
         </div>
 
-        {!embedded && <p className="mt-8 text-xs text-slate-400">{siteConfig.footer}</p>}
+        {!embedded && <p className="mt-8 text-center text-xs text-slate-400">{siteConfig.footer}</p>}
       </FadeUp>
     </div>
   );

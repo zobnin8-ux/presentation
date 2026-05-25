@@ -1,8 +1,9 @@
 "use client";
 
+import { sectionHeaders } from "@/lib/content";
 import { AuthorSection } from "@/components/sections/AuthorSection";
 import { CtaSection } from "@/components/sections/CtaSection";
-import { Panel, PanelHeader } from "@/components/ui/Section";
+import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 
 export function DiscussPanel() {
   return (
@@ -10,9 +11,12 @@ export function DiscussPanel() {
       <Panel>
         <PanelHeader
           num="06"
-          title="Давайте обсудим"
-          subtitle="Кто предлагает систему, и какие решения нужно принять на встрече."
+          title={sectionHeaders.discuss.title}
+          subtitle={sectionHeaders.discuss.subtitle}
         />
+        <FadeUp className="mt-6">
+          <Callout variant="warning">{sectionHeaders.discuss.risk}</Callout>
+        </FadeUp>
       </Panel>
       <AuthorSection embedded />
       <CtaSection embedded />

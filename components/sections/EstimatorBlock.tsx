@@ -18,6 +18,9 @@ export function EstimatorBlock() {
         <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
           {infrastructure.estimatorDesc}
         </p>
+        <p className="mt-4 text-sm font-medium text-emerald-800">
+          {infrastructure.estimatorResult}
+        </p>
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {infrastructure.estimatorCapabilities.map((cap) => (
             <li key={cap} className="flex items-start gap-2 text-sm text-slate-700">

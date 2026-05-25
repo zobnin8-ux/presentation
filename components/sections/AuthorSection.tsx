@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import { useInView } from "framer-motion";
 import { siteConfig } from "@/lib/content";
 import { FadeUp } from "@/components/ui/Section";
+import { Mail, Send, Globe } from "lucide-react";
 
 function CountUp({ target, suffix = "" }: { target: number | string; suffix?: string }) {
   const ref = useRef(null);
@@ -32,15 +34,55 @@ function CountUp({ target, suffix = "" }: { target: number | string; suffix?: st
   );
 }
 
+function AuthorContacts() {
+  const { author } = siteConfig;
+  return (
+    <div className="flex flex-wrap gap-3 pt-2">
+      <a
+        href={`mailto:${author.email}`}
+        className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-amber-300 hover:text-amber-800"
+      >
+        <Mail className="h-4 w-4 text-amber-700" />
+        {author.email}
+      </a>
+      <a
+        href={author.telegram}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-amber-300 hover:text-amber-800"
+      >
+        <Send className="h-4 w-4 text-amber-700" />
+        {author.telegramLabel}
+      </a>
+      <a
+        href={author.website}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-amber-300 hover:text-amber-800"
+      >
+        <Globe className="h-4 w-4 text-amber-700" />
+        {author.websiteLabel}
+      </a>
+    </div>
+  );
+}
+
 export function AuthorSection({ embedded = false }: { embedded?: boolean }) {
+  const { author } = siteConfig;
+
   return (
     <div className={embedded ? "" : "bg-gradient-to-b from-white to-slate-50"}>
       <FadeUp>
-        <div className="grid items-center gap-10 md:grid-cols-[180px_1fr]">
-          <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-amber-600 to-slate-800 p-1 shadow-lg">
-            <div className="flex h-full w-full items-center justify-center rounded-full bg-white text-4xl">
-              👤
-            </div>
+        <div className="grid items-start gap-10 md:grid-cols-[200px_1fr]">
+          <div className="mx-auto shrink-0 overflow-hidden rounded-2xl bg-gradient-to-br from-amber-600 to-slate-800 p-1 shadow-lg">
+            <Image
+              src={author.photo}
+              alt={author.name}
+              width={200}
+              height={240}
+              className="h-[240px] w-[200px] rounded-[14px] object-cover object-top"
+              priority
+            />
           </div>
           <div className="space-y-4 text-slate-600">
             <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
@@ -62,8 +104,9 @@ export function AuthorSection({ embedded = false }: { embedded?: boolean }) {
               работать через 30 и 90 дней.
             </p>
             <p className="font-semibold text-slate-900">
-              {siteConfig.author.name} · {siteConfig.author.role}
+              {author.name} · {author.role}
             </p>
+            <AuthorContacts />
           </div>
         </div>
       </FadeUp>

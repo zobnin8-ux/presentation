@@ -1,8 +1,8 @@
 "use client";
 
 import { PhoneOff, Search, FileX } from "lucide-react";
-import { pains } from "@/lib/content";
-import { FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
+import { pains, sectionHeaders } from "@/lib/content";
+import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 
 const icons = [PhoneOff, Search, FileX];
 
@@ -11,8 +11,8 @@ export function PainsSection() {
     <Panel>
       <PanelHeader
         num="03"
-        title="Что ломается при выходе в США без системы"
-        subtitle="Три типичных сценария, из-за которых теряются деньги — ещё до того, как станок выехал на объект."
+        title={sectionHeaders.pains.title}
+        subtitle={sectionHeaders.pains.subtitle}
       />
 
       <div className="space-y-5">
@@ -27,6 +27,9 @@ export function PainsSection() {
                 <div>
                   <h3 className="font-display text-lg font-semibold text-slate-900">{pain.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-700">{pain.text}</p>
+                  {pain.punchline && (
+                    <p className="mt-3 text-sm font-semibold text-red-700">{pain.punchline}</p>
+                  )}
                 </div>
               </div>
             </FadeUp>
@@ -34,12 +37,8 @@ export function PainsSection() {
         })}
       </div>
 
-      <FadeUp className="mt-10 rounded-xl border border-amber-200 bg-amber-50/60 px-6 py-5">
-        <p className="text-base font-medium leading-relaxed text-slate-800">
-          Все три проблемы решаются одной{" "}
-          <span className="font-semibold text-amber-900">сервисной инфраструктурой</span> — не
-          тремя разными людьми и не разрозненными чатами.
-        </p>
+      <FadeUp className="mt-10">
+        <Callout variant="punchline">{sectionHeaders.pains.punchline}</Callout>
       </FadeUp>
     </Panel>
   );

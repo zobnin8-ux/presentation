@@ -14,7 +14,7 @@ const chapters = [
     label: "Глава A · Месяц 1 · Фундамент",
     color: "border-blue-500 bg-blue-50/50",
     accent: "text-blue-700",
-    intro: "Estimator уже есть — подключаем поток заявок, CRM и память компании. Без этого estimate теряется после расчёта.",
+    intro: "AI Estimator уже есть — подключаем поток заявок, CRM и память компании. Без этого расчёт (estimate) теряется после оценки.",
     modules: modulesChapterA,
   },
   {

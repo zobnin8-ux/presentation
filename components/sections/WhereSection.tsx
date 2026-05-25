@@ -1,15 +1,15 @@
 "use client";
 
-import { chainSteps, whereColumns } from "@/lib/content";
-import { FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
+import { chainSteps, sectionHeaders, whereColumns } from "@/lib/content";
+import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 
 export function WhereSection() {
   return (
     <Panel>
       <PanelHeader
         num="02"
-        title="В США выигрывает не только тот, у кого лучше станок"
-        subtitle="Выигрывает тот, кого находят первым, кто отвечает за минуты и выглядит как надёжный подрядчик с первого касания."
+        title={sectionHeaders.market.title}
+        subtitle={sectionHeaders.market.subtitle}
       />
 
       <div className="grid gap-5 md:grid-cols-3">
@@ -26,7 +26,12 @@ export function WhereSection() {
         ))}
       </div>
 
-      <FadeUp className="mt-12">
+      <FadeUp className="mt-8 space-y-4">
+        <Callout variant="insight">{sectionHeaders.market.insight}</Callout>
+        <Callout variant="punchline">{sectionHeaders.market.punchline}</Callout>
+      </FadeUp>
+
+      <FadeUp className="mt-10">
         <ChainDiagram />
       </FadeUp>
     </Panel>

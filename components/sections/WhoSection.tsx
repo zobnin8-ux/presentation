@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Truck, Factory, Layers, Database } from "lucide-react";
-import { caseMarquee, whoCards } from "@/lib/content";
-import { FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
+import { caseMarquee, sectionHeaders, whoCards } from "@/lib/content";
+import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 import clsx from "clsx";
 
 const icons = { truck: Truck, factory: Factory, layers: Layers, database: Database };
@@ -13,8 +13,8 @@ export function WhoSection() {
     <Panel>
       <PanelHeader
         num="01"
-        title="Не стартап. Внешнее ремонтное подразделение — с 2005 года."
-        subtitle="Главный актив — опыт выездного ремонта и сотни реальных проектов."
+        title={sectionHeaders.who.title}
+        subtitle={sectionHeaders.who.subtitle}
       />
 
       <div className="grid gap-5 sm:grid-cols-2">
@@ -49,11 +49,9 @@ export function WhoSection() {
         </div>
       </div>
 
-      <FadeUp className="mt-10 border-l-4 border-amber-600 pl-5">
-        <p className="text-base font-medium leading-relaxed text-slate-800">
-          В России вас знают как тех, кто приезжает со станком и решает задачу на месте. В США нужна
-          система, которая делает то же самое — до и после выезда бригады.
-        </p>
+      <FadeUp className="mt-10 space-y-4">
+        <Callout variant="insight">{sectionHeaders.who.insight}</Callout>
+        <Callout variant="punchline">{sectionHeaders.who.punchline}</Callout>
       </FadeUp>
     </Panel>
   );

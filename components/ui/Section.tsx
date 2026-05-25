@@ -25,6 +25,33 @@ export function FadeUp({
   );
 }
 
+export function Callout({
+  variant,
+  children,
+  className,
+}: {
+  variant: "insight" | "warning" | "punchline";
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={clsx(
+        "rounded-xl px-5 py-4 text-sm leading-relaxed md:text-base",
+        variant === "insight" &&
+          "border-l-4 border-amber-600 bg-amber-50/90 font-medium text-slate-800",
+        variant === "warning" &&
+          "border-l-4 border-red-500 bg-red-50/80 font-medium text-slate-800",
+        variant === "punchline" &&
+          "border-2 border-slate-800 bg-slate-900 font-semibold text-white shadow-lg",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
 /** @deprecated use Panel */
 export function SectionWrapper({
   id,

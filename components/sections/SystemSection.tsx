@@ -62,7 +62,7 @@ export function SystemSection({ embedded = false }: { embedded?: boolean }) {
             </div>
 
             <p className="border-b border-slate-700 bg-slate-800/50 px-6 py-2 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">
-              Откуда приходит заявка: Сайт · Телефон 24/7 · LinkedIn · Outreach · SEO
+              Откуда приходит заявка: Сайт · Телефон 24/7 · LinkedIn · прямой контакт (outreach) · продвижение (SEO)
             </p>
 
             <div className="grid md:grid-cols-2">
