@@ -5,10 +5,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import {
   presentationSections,
+  proposalDividerLabel,
   shellIntro,
   siteConfig,
   type PresentationSectionId,
 } from "@/lib/content";
+import { SeenSection } from "@/components/sections/SeenSection";
 import { WhoSection } from "@/components/sections/WhoSection";
 import { WhereSection } from "@/components/sections/WhereSection";
 import { PainsSection } from "@/components/sections/PainsSection";
@@ -17,6 +19,7 @@ import { PlanPanel } from "@/components/panels/PlanPanel";
 import { DiscussPanel } from "@/components/panels/DiscussPanel";
 
 const panels: Record<PresentationSectionId, React.ReactNode> = {
+  seen: <SeenSection />,
   who: <WhoSection />,
   market: <WhereSection />,
   pains: <PainsSection />,
@@ -26,13 +29,13 @@ const panels: Record<PresentationSectionId, React.ReactNode> = {
 };
 
 function sectionFromHash(): PresentationSectionId {
-  if (typeof window === "undefined") return "who";
+  if (typeof window === "undefined") return "seen";
   const hash = window.location.hash.replace("#", "") as PresentationSectionId;
-  return presentationSections.some((s) => s.id === hash) ? hash : "who";
+  return presentationSections.some((s) => s.id === hash) ? hash : "seen";
 }
 
 export function PresentationShell() {
-  const [active, setActive] = useState<PresentationSectionId>("who");
+  const [active, setActive] = useState<PresentationSectionId>("seen");
 
   useEffect(() => {
     setActive(sectionFromHash());
@@ -58,37 +61,54 @@ export function PresentationShell() {
         </header>
 
         <nav className="flex flex-1 flex-col gap-1 px-4 py-6">
-          {presentationSections.map((section) => {
+          {presentationSections.map((section, index) => {
             const isActive = active === section.id;
+            const showDivider =
+              index > 0 &&
+              section.group === "proposal" &&
+              presentationSections[index - 1]?.group === "context";
+
             return (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => goTo(section.id)}
-                className={clsx(
-                  "group flex items-center gap-5 rounded-r-xl border-l-4 py-5 pl-5 pr-4 text-left transition-all duration-200",
-                  isActive
-                    ? "border-amber-600 bg-amber-50/90 shadow-sm"
-                    : "border-transparent hover:border-amber-300/60 hover:bg-slate-50"
+              <div key={section.id}>
+                {showDivider && (
+                  <div className="my-4 px-2">
+                    <div className="h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
+                    <p className="mt-3 text-[10px] font-bold uppercase tracking-widest text-amber-700/80">
+                      {proposalDividerLabel}
+                    </p>
+                  </div>
                 )}
-              >
-                <span
+                <button
+                  type="button"
+                  onClick={() => goTo(section.id)}
                   className={clsx(
-                    "font-display text-5xl font-bold tabular-nums leading-none transition-colors",
-                    isActive ? "text-amber-700" : "text-slate-200 group-hover:text-slate-300"
+                    "group flex w-full items-center gap-5 rounded-r-xl border-l-4 py-5 pl-5 pr-4 text-left transition-all duration-200",
+                    isActive
+                      ? "border-amber-600 bg-amber-50/90 shadow-sm"
+                      : section.group === "proposal"
+                        ? "border-transparent bg-slate-50/50 hover:border-amber-300/60 hover:bg-amber-50/30"
+                        : "border-transparent hover:border-amber-300/60 hover:bg-slate-50"
                   )}
                 >
-                  {section.num}
-                </span>
-                <span
-                  className={clsx(
-                    "text-lg font-semibold leading-tight transition-colors",
-                    isActive ? "text-slate-900" : "text-slate-500 group-hover:text-slate-700"
-                  )}
-                >
-                  {section.label}
-                </span>
-              </button>
+                  <span
+                    className={clsx(
+                      "font-display text-5xl font-bold tabular-nums leading-none transition-colors",
+                      section.num === "00" && "text-4xl",
+                      isActive ? "text-amber-700" : "text-slate-200 group-hover:text-slate-300"
+                    )}
+                  >
+                    {section.num}
+                  </span>
+                  <span
+                    className={clsx(
+                      "text-lg font-semibold leading-tight transition-colors",
+                      isActive ? "text-slate-900" : "text-slate-500 group-hover:text-slate-700"
+                    )}
+                  >
+                    {section.label}
+                  </span>
+                </button>
+              </div>
             );
           })}
         </nav>

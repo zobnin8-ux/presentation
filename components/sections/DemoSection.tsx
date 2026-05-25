@@ -1,175 +1,172 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { demoSteps } from "@/lib/content";
+import { useEffect, useState } from "react";
+import { demoSteps, demoSummary } from "@/lib/content";
 import { FadeUp } from "@/components/ui/Section";
-import { RotateCcw, Brain, Database, Radio } from "lucide-react";
+import { Play, Square, Zap } from "lucide-react";
 import clsx from "clsx";
 
-const panelMeta = {
-  intake: { label: "Intake · сбор данных", icon: Radio, color: "border-slate-300 bg-slate-50" },
-  estimator: { label: "AI Estimator · расчёт КП", icon: Brain, color: "border-blue-400 bg-blue-50" },
-  crm: { label: "CRM · объект · база", icon: Database, color: "border-violet-300 bg-violet-50" },
-  dispatch: { label: "Dispatch · задача инженеру", icon: Radio, color: "border-emerald-300 bg-emerald-50" },
-};
+const STEP_MS = 2200;
 
-export function DemoSection({ embedded = false }: { embedded?: boolean }) {
-  const [playing, setPlaying] = useState(false);
+export function DemoSection() {
+  const [running, setRunning] = useState(false);
   const [step, setStep] = useState(-1);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [played, setPlayed] = useState(false);
+  const [finished, setFinished] = useState(false);
 
   useEffect(() => {
-    if (embedded) {
-      setPlayed(true);
-      setPlaying(true);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !played) {
-          setPlayed(true);
-          setPlaying(true);
-        }
-      },
-      { threshold: 0.4 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, [played, embedded]);
-
-  useEffect(() => {
-    if (!playing) return;
+    if (!running) return;
     setStep(-1);
+    setFinished(false);
     const timers: ReturnType<typeof setTimeout>[] = [];
     demoSteps.forEach((_, i) => {
-      timers.push(setTimeout(() => setStep(i), i * 2400));
+      timers.push(setTimeout(() => setStep(i), i * STEP_MS));
     });
-    timers.push(setTimeout(() => setPlaying(false), demoSteps.length * 2400 + 500));
+    timers.push(
+      setTimeout(() => {
+        setRunning(false);
+        setFinished(true);
+      }, demoSteps.length * STEP_MS + 400)
+    );
     return () => timers.forEach(clearTimeout);
-  }, [playing]);
+  }, [running]);
 
-  const replay = () => {
-    setStep(-1);
-    setPlaying(true);
+  const start = () => {
+    setFinished(false);
+    setRunning(true);
   };
 
-  const activePanel = step >= 0 ? demoSteps[Math.min(step, demoSteps.length - 1)].panel : "intake";
-  const meta = panelMeta[activePanel as keyof typeof panelMeta];
-  const Icon = meta.icon;
+  const stop = () => {
+    setRunning(false);
+    setStep(-1);
+  };
 
-  const demoContent = (
-    <div ref={sectionRef}>
-      {embedded && (
-        <p className="mb-6 text-sm font-semibold uppercase tracking-widest text-amber-700">
-          Demo · Emergency 2:47
-        </p>
-      )}
+  return (
+    <FadeUp>
+      <div
+        className={clsx(
+          "overflow-hidden rounded-2xl border-4 transition-shadow duration-300",
+          running
+            ? "border-amber-500 bg-slate-950 shadow-[0_0_40px_rgba(245,158,11,0.25)]"
+            : finished
+              ? "border-slate-300 bg-slate-900"
+              : "border-slate-200 bg-slate-900"
+        )}
+      >
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-700 px-6 py-4">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-amber-500">Demo</p>
+            <p className="font-display text-lg font-bold text-white">Авария · 2:47 · Texas Plant</p>
+            <p className="mt-1 text-sm text-slate-400">
+              Как заявка проходит через систему — за ~15 секунд
+            </p>
+          </div>
 
-      <FadeUp>
-        <div className="grid gap-8 lg:grid-cols-5">
-          <div className="lg:col-span-3">
-            <div className="overflow-hidden rounded-2xl border-2 border-slate-300 bg-white shadow-xl">
-              <div className="flex items-center justify-between border-b border-slate-200 bg-slate-800 px-4 py-2">
-                <span className="text-xs font-semibold text-white">GRC Service Infrastructure</span>
-                <span className="rounded bg-amber-500 px-2 py-0.5 text-[10px] font-bold text-slate-900">
-                  2:47 AM · EMERGENCY
-                </span>
-              </div>
+          <div className="flex items-center gap-3">
+            {running && (
+              <span className="flex items-center gap-2 rounded-full bg-amber-500/20 px-3 py-1 text-xs font-bold text-amber-300 animate-pulse">
+                <Zap className="h-3.5 w-3.5" />
+                LIVE
+              </span>
+            )}
+            {!running ? (
+              <button
+                type="button"
+                onClick={start}
+                className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-5 py-2.5 text-sm font-bold text-slate-900 shadow-lg transition hover:bg-amber-400"
+              >
+                <Play className="h-4 w-4 fill-current" />
+                {finished ? "Запустить снова" : "Запустить demo"}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={stop}
+                className="inline-flex items-center gap-2 rounded-full border border-slate-500 bg-slate-800 px-5 py-2.5 text-sm font-bold text-white hover:bg-slate-700"
+              >
+                <Square className="h-4 w-4" />
+                Остановить
+              </button>
+            )}
+          </div>
+        </div>
 
-              <div className={clsx("border-b px-4 py-3", meta.color)}>
-                <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-slate-700">
-                  <Icon className="h-4 w-4" />
-                  {meta.label}
-                </p>
-              </div>
+        <div className="grid gap-6 p-6 lg:grid-cols-5">
+          <div className="space-y-3 lg:col-span-3">
+            {!running && step < 0 && !finished && (
+              <p className="rounded-xl border border-dashed border-slate-600 px-4 py-8 text-center text-sm text-slate-500">
+                Нажмите «Запустить demo» — пошаговый проход emergency-заявки
+              </p>
+            )}
 
-              <div className="min-h-[280px] space-y-3 p-4">
-                {demoSteps.map((s, i) =>
-                  i <= step ? (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className={clsx(
-                        "rounded-xl border p-3",
-                        s.panel === "estimator" && "border-blue-300 bg-blue-50/80",
-                        s.panel === "intake" && "border-slate-200 bg-slate-50",
-                        s.panel === "crm" && "border-violet-200 bg-violet-50/80",
-                        s.panel === "dispatch" && "border-emerald-200 bg-emerald-50/80"
-                      )}
-                    >
-                      <p className="text-sm font-semibold text-slate-900">{s.text}</p>
-                      <p className="mt-1 text-xs text-slate-600">{s.detail}</p>
-                    </motion.div>
-                  ) : null
-                )}
-              </div>
-            </div>
+            {demoSteps.map((s, i) => {
+              const visible = finished || i <= step;
+              const active = running && i === step;
+              if (!visible) return null;
+
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className={clsx(
+                    "rounded-xl border-l-4 p-4 transition-all",
+                    active && running
+                      ? "border-l-amber-500 bg-amber-500/10 ring-1 ring-amber-500/40"
+                      : "border-l-slate-600 bg-slate-800/80"
+                  )}
+                >
+                  <p className="text-sm font-bold text-white">{s.text}</p>
+                  <p className="mt-1 text-xs text-slate-400">{s.detail}</p>
+                  {(active || finished) && (
+                    <p className="mt-2 text-sm font-medium text-amber-200/90">{s.meaning}</p>
+                  )}
+                </motion.div>
+              );
+            })}
+
+            {finished && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="rounded-xl border border-emerald-500/50 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-300"
+              >
+                ✓ {demoSummary}
+              </motion.p>
+            )}
           </div>
 
           <div className="flex flex-col justify-center gap-4 lg:col-span-2">
-            <div className="rounded-xl border-2 border-blue-200 bg-white p-4 shadow-sm">
-              <p className="text-xs font-bold uppercase tracking-wide text-blue-600">
-                AI Estimator · модуль расчёта
+            <div className="rounded-xl bg-slate-800 p-5 ring-1 ring-slate-700">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                Время до dispatch
               </p>
-              <p className="mt-2 text-sm text-slate-700">
-                {step >= 1
-                  ? "Анализ · похожие кейсы · pre-estimate → CRM"
-                  : "Ожидание структурированного пакета..."}
+              <p
+                className={clsx(
+                  "mt-2 font-display text-5xl font-bold tabular-nums",
+                  step >= 4 || finished ? "text-emerald-400" : running ? "text-amber-400" : "text-slate-600"
+                )}
+              >
+                {step >= 4 || finished ? "0:47" : running ? "—:—" : "—:—"}
               </p>
-              {step >= 2 && (
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="mt-2 text-xs font-semibold text-emerald-600"
-                >
-                  ✓ Estimate сохранён в системе
-                </motion.p>
-              )}
+              <p className="mt-2 text-xs text-slate-500">
+                {step >= 4 || finished
+                  ? "Инженер получил полный пакет — без поиска в WhatsApp"
+                  : "Таймер стартует, когда demo идёт"}
+              </p>
             </div>
 
-            <div className="rounded-xl bg-slate-900 p-4 text-white">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-400">Время до dispatch</span>
-                <span className="font-display text-2xl font-bold text-emerald-400">
-                  {step >= 4 ? "0:47" : "—:—"}
-                </span>
-              </div>
-              <div className="mt-2">
-                <span
-                  className={clsx(
-                    "rounded-full px-3 py-1 text-xs font-semibold",
-                    step >= 4 ? "bg-emerald-500/20 text-emerald-300" : "bg-slate-700 text-slate-400"
-                  )}
-                >
-                  {step >= 4 ? "✓ Инженер видит полный пакет" : "Ожидание..."}
-                </span>
-              </div>
+            <div className="rounded-xl border border-violet-500/40 bg-violet-950/50 p-4">
+              <p className="text-xs font-bold uppercase text-violet-300">AI Estimator</p>
+              <p className="mt-2 text-sm text-violet-100">
+                {step >= 2 || finished
+                  ? "Pre-estimate в CRM · 3 кейса из архива GRC"
+                  : "Ожидание запуска demo..."}
+              </p>
             </div>
-
-            <button
-              type="button"
-              onClick={replay}
-              className="inline-flex items-center gap-2 self-start rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-            >
-              <RotateCcw className="h-4 w-4" />
-              Повторить demo
-            </button>
           </div>
         </div>
-      </FadeUp>
-    </div>
-  );
-
-  if (embedded) {
-    return (
-      <div className="rounded-2xl border-2 border-slate-200 bg-white p-6 shadow-sm lg:p-8">
-        {demoContent}
       </div>
-    );
-  }
-
-  return demoContent;
+    </FadeUp>
+  );
 }
