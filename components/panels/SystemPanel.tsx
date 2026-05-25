@@ -2,8 +2,7 @@
 
 import { sectionHeaders } from "@/lib/content";
 import { SystemSection } from "@/components/sections/SystemSection";
-import { DemoSection } from "@/components/sections/DemoSection";
-import { EstimatorBlock } from "@/components/sections/EstimatorBlock";
+import { LifecycleDemoSection } from "@/components/sections/DemoSection";
 import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 
 export function SystemPanel() {
@@ -15,13 +14,12 @@ export function SystemPanel() {
           title={sectionHeaders.system.title}
           subtitle={sectionHeaders.system.subtitle}
         />
-        <FadeUp className="mt-6 space-y-4">
+        <FadeUp className="mt-6">
           <Callout variant="insight">{sectionHeaders.system.insight}</Callout>
         </FadeUp>
       </Panel>
       <SystemSection />
-      <EstimatorBlock />
-      <DemoSection />
+      <LifecycleDemoSection />
     </div>
   );
 }

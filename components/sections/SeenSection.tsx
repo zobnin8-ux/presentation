@@ -9,6 +9,7 @@ import {
   siteDraftUs,
   sectionHeaders,
   siteConfig,
+  siteDoctorUrl,
 } from "@/lib/content";
 import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 import { Mail, Send, Globe, ExternalLink, BarChart3 } from "lucide-react";
@@ -52,10 +53,17 @@ function AuditBlock({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="card-solid h-full">
+      <div className="card-solid flex h-full flex-col">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Site Doctor</p>
+            <a
+              href={siteDoctorUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-bold uppercase tracking-widest text-amber-700 hover:underline"
+            >
+              Site Doctor
+            </a>
             <h3 className="mt-1 font-display text-lg font-semibold text-slate-900">{audit.title}</h3>
             <a
               href={audit.siteUrl}
@@ -75,7 +83,7 @@ function AuditBlock({
           <MetricRow metrics={audit.metrics} />
         </div>
 
-        <ul className="mt-4 space-y-2 text-sm leading-relaxed text-slate-600">
+        <ul className="mt-4 flex-1 space-y-2 text-sm leading-relaxed text-slate-600">
           {audit.findings.map((f) => (
             <li key={f} className="flex gap-2">
               <span className="text-slate-300">·</span>
@@ -92,7 +100,38 @@ function AuditBlock({
           rel="noopener noreferrer"
           className="mt-4 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-amber-300 hover:text-amber-800"
         >
-          Полный отчёт Site Doctor
+          Полный отчёт
+          <ExternalLink className="h-4 w-4" />
+        </a>
+      </div>
+    </FadeUp>
+  );
+}
+
+function DraftUsBlock() {
+  return (
+    <FadeUp delay={0.06}>
+      <div className="flex h-full flex-col rounded-2xl border-2 border-amber-500/60 bg-gradient-to-br from-amber-50/90 to-white p-5 shadow-md lg:p-6">
+        <p className="text-xs font-bold uppercase tracking-widest text-amber-700">На основе анализа · US</p>
+        <h3 className="mt-1 font-display text-lg font-bold text-slate-900">{siteDraftUs.title}</h3>
+        <p className="text-sm text-slate-600">{siteDraftUs.subtitle}</p>
+        <p className="mt-3 text-sm italic text-slate-700">&ldquo;{siteDraftUs.hero}&rdquo;</p>
+        <ul className="mt-4 flex-1 space-y-1.5 text-sm text-slate-700">
+          {siteDraftUs.pages.slice(0, 4).map((page) => (
+            <li key={page.path}>
+              <span className="font-mono text-xs text-slate-400">{page.path}</span>
+              <span className="ml-2">{page.label.split("·")[0].trim()}</span>
+            </li>
+          ))}
+          <li className="font-semibold text-amber-950">/contact — intake gateway</li>
+        </ul>
+        <a
+          href={siteDraftUs.demoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center gap-2 rounded-full bg-amber-600 px-4 py-2 text-sm font-bold text-white shadow-lg transition hover:bg-amber-500"
+        >
+          Открыть US demo
           <ExternalLink className="h-4 w-4" />
         </a>
       </div>
@@ -103,78 +142,18 @@ function AuditBlock({
 function DraftRuBlock() {
   return (
     <FadeUp delay={0.08}>
-      <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-5">
-        <p className="text-xs font-bold uppercase tracking-widest text-slate-500">Сделано</p>
+      <div className="flex h-full flex-col rounded-xl border border-slate-200 bg-slate-50/80 p-5">
+        <p className="text-xs font-bold uppercase tracking-widest text-slate-500">На основе анализа · RU</p>
         <h3 className="mt-1 font-display text-base font-semibold text-slate-900">{siteDraftRu.title}</h3>
-        <p className="text-sm text-slate-500">{siteDraftRu.subtitle}</p>
-        <ul className="mt-3 space-y-1.5 text-sm text-slate-600">
-          {siteDraftRu.points.map((p) => (
-            <li key={p}>· {p}</li>
-          ))}
-        </ul>
-        <p className="mt-3 text-xs text-slate-400">{siteDraftRu.note}</p>
+        <p className="mt-2 text-sm text-slate-600">{siteDraftRu.points[0]}</p>
+        <p className="mt-auto text-xs text-slate-400">{siteDraftRu.note}</p>
         <a
           href={siteDraftRu.demoUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-amber-700 hover:underline"
+          className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-amber-700 hover:underline"
         >
-          Открыть demo · grc-rus.vercel.app
-          <ExternalLink className="h-4 w-4" />
-        </a>
-      </div>
-    </FadeUp>
-  );
-}
-
-function DraftUsBlock() {
-  return (
-    <FadeUp delay={0.12}>
-      <div className="rounded-2xl border-2 border-amber-500/60 bg-gradient-to-br from-amber-50/90 to-white p-6 shadow-md">
-        <p className="text-xs font-bold uppercase tracking-widest text-amber-700">Главный фокус · US</p>
-        <h3 className="mt-1 font-display text-xl font-bold text-slate-900">{siteDraftUs.title}</h3>
-        <p className="text-sm text-slate-600">{siteDraftUs.subtitle}</p>
-
-        <p className="mt-4 text-sm italic text-slate-700">&ldquo;{siteDraftUs.hero}&rdquo;</p>
-        <p className="mt-2 text-xs text-slate-500">
-          CTA: {siteDraftUs.ctas.join(" · ")}
-        </p>
-
-        <ul className="mt-5 space-y-2">
-          {siteDraftUs.pages.map((page) => (
-            <li
-              key={page.path}
-              className={clsx(
-                "rounded-lg px-3 py-2 text-sm",
-                page.highlight
-                  ? "border border-amber-300 bg-amber-100/80 font-semibold text-amber-950"
-                  : "bg-white/80 text-slate-700"
-              )}
-            >
-              <span className="font-mono text-xs text-slate-400">{page.path}</span>
-              <span className="ml-2">{page.label}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-5 border-t border-amber-200/60 pt-4">
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Почему бьём TISS</p>
-          <ul className="mt-2 space-y-1 text-sm text-slate-700">
-            {siteDraftUs.vsCompetitor.map((v) => (
-              <li key={v}>· {v}</li>
-            ))}
-          </ul>
-        </div>
-
-        <p className="mt-4 text-xs text-slate-500">{siteDraftUs.note}</p>
-
-        <a
-          href={siteDraftUs.demoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-2 rounded-full bg-amber-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:bg-amber-500"
-        >
-          Открыть US demo
+          grc-rus.vercel.app
           <ExternalLink className="h-4 w-4" />
         </a>
       </div>
@@ -197,21 +176,11 @@ export function SeenSection() {
         <Callout variant="insight">{sectionHeaders.seen.insight}</Callout>
       </FadeUp>
 
-      <div className="space-y-8">
-        <section>
-          <AuditBlock audit={siteAuditGrc} />
-          <div className="mt-4 ml-0 sm:ml-4">
-            <DraftRuBlock />
-          </div>
-        </section>
-
-        <section>
-          <AuditBlock audit={siteAuditTiss} delay={0.05} />
-        </section>
-
-        <section>
-          <DraftUsBlock />
-        </section>
+      <div className="grid gap-6 lg:grid-cols-2">
+        <AuditBlock audit={siteAuditGrc} />
+        <AuditBlock audit={siteAuditTiss} delay={0.04} />
+        <DraftUsBlock />
+        <DraftRuBlock />
       </div>
 
       <FadeUp className="mt-10">
@@ -232,9 +201,7 @@ export function SeenSection() {
           <p className="font-semibold text-slate-900">
             {author.name} · {author.role}
           </p>
-          <p className="mt-1 text-sm text-slate-500">
-            Анализ · черновики · предложение GRC → US
-          </p>
+          <p className="mt-1 text-sm text-slate-500">Анализ · черновики · предложение GRC → US</p>
           <div className="mt-3 flex flex-wrap gap-3 text-sm">
             <a
               href={`mailto:${author.email}`}

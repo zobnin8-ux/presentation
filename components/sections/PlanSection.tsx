@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import clsx from "clsx";
-import { planStages } from "@/lib/content";
+import { planStages, systemModules } from "@/lib/content";
 import { FadeUp } from "@/components/ui/Section";
+import { Check } from "lucide-react";
 
 export function PlanSection() {
   const [active, setActive] = useState<(typeof planStages)[number]["id"]>("1");
@@ -37,32 +38,55 @@ export function PlanSection() {
       <FadeUp key={stage.id}>
         <div className="rounded-2xl border-2 border-slate-200 bg-white p-6 lg:p-8">
           <p className="text-sm font-semibold uppercase tracking-widest text-amber-700">
-            {stage.stage} · {stage.period} · {stage.title}
+            {stage.stage} · {stage.period}
           </p>
-          <p className="mt-4 text-lg font-medium leading-relaxed text-slate-800">{stage.outcome}</p>
+          <h3 className="mt-2 font-display text-xl font-bold text-slate-900">{stage.title}</h3>
+          <p className="mt-3 text-base font-medium leading-relaxed text-slate-800">{stage.headline}</p>
 
-          {stage.id === "1" && "quickStart" in stage && (
-            <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50/60 px-4 py-3 text-sm leading-relaxed text-slate-700">
-              {stage.quickStart}
+          <p className="mt-2 text-xs font-bold uppercase tracking-wider text-slate-400">
+            Модули системы:{" "}
+            {stage.modules
+              .map((n) => systemModules.find((m) => m.num === n)?.num)
+              .filter(Boolean)
+              .join(", ")}
+          </p>
+
+          {"notDoing" in stage && stage.notDoing && (
+            <p className="mt-5 rounded-lg border border-violet-200 bg-violet-50/60 px-4 py-3 text-sm leading-relaxed text-violet-950">
+              <span className="font-bold">Не делаем: </span>
+              {stage.notDoing}
             </p>
           )}
 
-          <ul className="mt-8 space-y-4">
-            {stage.modules.map((mod, i) => (
-              <li
-                key={mod.title}
-                className="flex gap-4 border-b border-slate-100 pb-4 last:border-0 last:pb-0"
-              >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-800 text-sm font-bold text-white">
-                  {i + 1}
-                </span>
-                <div>
-                  <p className="font-display text-base font-semibold text-slate-900">{mod.title}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-slate-600">{mod.result}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-8">
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-500">Работы</p>
+            <ul className="mt-3 space-y-2">
+              {stage.works.map((work) => (
+                <li key={work} className="flex gap-3 text-sm leading-relaxed text-slate-700">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
+                  {work}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-8 rounded-xl border border-emerald-200 bg-emerald-50/50 p-5">
+            <p className="text-xs font-bold uppercase tracking-widest text-emerald-800">
+              Что уже работает на выходе этапа
+            </p>
+            <ul className="mt-3 space-y-2">
+              {stage.running.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-sm text-slate-700">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <p className="mt-8 border-t border-slate-100 pt-6 text-base font-semibold leading-relaxed text-slate-900">
+            {stage.outcome}
+          </p>
         </div>
       </FadeUp>
     </div>

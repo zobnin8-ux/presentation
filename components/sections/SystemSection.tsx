@@ -1,174 +1,143 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  scenarioPlanned,
-  scenarioEmergency,
-  commonPath,
-  backgroundEngines,
-} from "@/lib/content";
-import { FadeUp } from "@/components/ui/Section";
-import { User, Cog, Zap, Clock } from "lucide-react";
 import clsx from "clsx";
+import {
+  systemContour,
+  systemModules,
+  systemSiteUnit,
+  sectionHeaders,
+} from "@/lib/content";
+import { Callout, FadeUp } from "@/components/ui/Section";
+import { ExternalLink, Server, Brain } from "lucide-react";
 
-type Mode = "planned" | "emergency";
-
-function ScenarioBlock({ mode }: { mode: Mode }) {
-  const scenario = mode === "planned" ? scenarioPlanned : scenarioEmergency;
-
+function ContourDiagram() {
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={mode}
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden rounded-xl border border-slate-700 bg-slate-900 text-white"
-      >
-        <div className="border-b border-slate-700 px-4 py-3 text-center">
-          <p className="font-display text-base font-bold">{scenario.title}</p>
-          <p className="mt-1 text-[10px] font-semibold uppercase tracking-widest text-slate-400">
-            Сайт · Телефон 24/7 · LinkedIn · outreach · SEO
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2">
-          <div className="border-b border-slate-700 p-4 md:border-b-0 md:border-r">
-            <div className="mb-3 flex items-center gap-2 text-emerald-400">
-              <User className="h-4 w-4" />
-              <span className="text-xs font-bold uppercase tracking-wide">Клиент видит</span>
+    <div className="overflow-x-auto rounded-2xl border-2 border-slate-200 bg-slate-50 p-5 lg:p-6">
+      <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">
+        Контур системы · один хребет
+      </p>
+      <div className="flex min-w-[640px] flex-wrap items-center gap-1 md:min-w-0 md:flex-nowrap">
+        {systemContour.steps.map((step, i) => (
+          <div key={step.label} className="flex items-center">
+            <div
+              className={clsx(
+                "rounded-lg px-2.5 py-2 text-center",
+                step.label.includes("planned")
+                  ? "border border-amber-300 bg-amber-50"
+                  : step.label.includes("Estimator")
+                    ? "border border-violet-200 bg-violet-50"
+                    : step.label.includes("US-сайт")
+                      ? "border-2 border-amber-500 bg-white"
+                      : "border border-slate-200 bg-white"
+              )}
+            >
+              <p className="text-xs font-bold text-slate-900">{step.label}</p>
+              <p className="text-[10px] text-slate-500">{step.sub}</p>
             </div>
-            <ol className="space-y-2">
-              {scenario.clientSteps.map((step, i) => (
-                <li
-                  key={step}
-                  className="flex gap-2 rounded-lg bg-slate-800/80 p-2.5 text-xs leading-snug text-slate-200"
-                >
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-bold">
-                    {i + 1}
-                  </span>
-                  {step}
-                </li>
-              ))}
-            </ol>
+            {i < systemContour.steps.length - 1 && (
+              <span className="mx-0.5 text-slate-300">→</span>
+            )}
           </div>
+        ))}
+      </div>
+      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        <p className="rounded-lg border border-blue-200 bg-blue-50/60 px-3 py-2 text-xs leading-relaxed text-slate-700">
+          <span className="font-bold">Память ОС:</span> {systemContour.memory.os}
+        </p>
+        <p className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs leading-relaxed text-slate-700">
+          <span className="font-bold">Память объекта:</span> {systemContour.memory.object}
+        </p>
+      </div>
+    </div>
+  );
+}
 
-          <div className="p-4">
-            <div className="mb-3 flex items-center gap-2 text-blue-400">
-              <Cog className="h-4 w-4" />
-              <span className="text-xs font-bold uppercase tracking-wide">Система делает</span>
-            </div>
-            <ol className="space-y-2">
-              {scenario.systemSteps.map((step, i) => (
-                <li
-                  key={step}
-                  className={clsx(
-                    "flex gap-2 rounded-lg p-2.5 text-xs font-semibold leading-snug",
-                    step.includes("EMERGENCY") || step.includes("SMS")
-                      ? "bg-amber-500/20 text-amber-100"
-                      : step.includes("Estimator")
-                        ? "bg-violet-500/25 text-violet-100"
-                        : "bg-blue-600/15 text-slate-100"
-                  )}
-                >
-                  <span
-                    className={clsx(
-                      "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-bold",
-                      step.includes("EMERGENCY") || step.includes("SMS")
-                        ? "bg-amber-500 text-slate-900"
-                        : step.includes("Estimator")
-                          ? "bg-violet-500 text-white"
-                          : "bg-blue-600 text-white"
-                    )}
-                  >
-                    {i + 1}
-                  </span>
-                  {step}
-                </li>
-              ))}
-            </ol>
-          </div>
+function ModuleCard({ mod }: { mod: (typeof systemModules)[number] }) {
+  return (
+    <div className="card-solid flex h-full flex-col">
+      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-800 text-xs font-bold text-white">
+        {mod.num}
+      </span>
+      <h3 className="mt-3 font-display text-base font-semibold leading-snug text-slate-900">
+        {mod.title}
+      </h3>
+      <div className="mt-4 flex-1 space-y-3 text-sm leading-relaxed">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-red-600">Боль</p>
+          <p className="mt-1 text-slate-600">{mod.pain}</p>
         </div>
-      </motion.div>
-    </AnimatePresence>
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-blue-600">Решение</p>
+          <p className="mt-1 text-slate-700">{mod.solution}</p>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">Результат</p>
+          <p className="mt-1 font-medium text-slate-800">{mod.result}</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
 export function SystemSection() {
-  const [mode, setMode] = useState<Mode>("planned");
-
   return (
-    <FadeUp>
-      <div className="grid gap-6 lg:grid-cols-2 lg:gap-0 lg:overflow-hidden lg:rounded-2xl lg:border-2 lg:border-slate-200 lg:bg-white lg:shadow-sm">
-        <div className="lg:border-r lg:border-slate-200 lg:p-6">
-          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">
-            Событие · заявка
-          </p>
-          <div className="mb-4 flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => setMode("planned")}
-              className={clsx(
-                "flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition-all",
-                mode === "planned"
-                  ? "bg-blue-600 text-white shadow-md ring-2 ring-blue-300"
-                  : "bg-slate-100 text-slate-500 hover:bg-slate-200"
-              )}
+    <div className="space-y-10">
+      <FadeUp>
+        <ContourDiagram />
+      </FadeUp>
+
+      <FadeUp>
+        <div className="grid gap-5 sm:grid-cols-2">
+          {systemModules.map((mod, i) => (
+            <FadeUp key={mod.num} delay={i * 0.03}>
+              <ModuleCard mod={mod} />
+            </FadeUp>
+          ))}
+        </div>
+      </FadeUp>
+
+      <FadeUp>
+        <div className="grid gap-5 lg:grid-cols-2">
+          <div className="rounded-2xl border-2 border-amber-500/50 bg-gradient-to-br from-amber-50/80 to-white p-6">
+            <div className="flex items-center gap-2 text-amber-700">
+              <Server className="h-5 w-5" />
+              <p className="text-xs font-bold uppercase tracking-widest">{systemSiteUnit.title}</p>
+            </div>
+            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-slate-700">
+              {systemSiteUnit.points.map((p) => (
+                <li key={p}>· {p}</li>
+              ))}
+            </ul>
+            <a
+              href={systemSiteUnit.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-amber-700 hover:underline"
             >
-              <Clock className="h-4 w-4" />
-              Плановая · 14:30
-            </button>
-            <button
-              type="button"
-              onClick={() => setMode("emergency")}
-              className={clsx(
-                "flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition-all",
-                mode === "emergency"
-                  ? "bg-amber-500 text-slate-900 shadow-md ring-2 ring-amber-300"
-                  : "bg-slate-100 text-slate-500 hover:bg-slate-200"
-              )}
-            >
-              <Zap className="h-4 w-4" />
-              Авария · 2:47
-            </button>
+              grc-eta.vercel.app
+              <ExternalLink className="h-4 w-4" />
+            </a>
           </div>
-          <ScenarioBlock mode={mode} />
+
+          <div className="rounded-2xl border-2 border-violet-200 bg-violet-50/40 p-6">
+            <div className="flex items-center gap-2 text-violet-700">
+              <Brain className="h-5 w-5" />
+              <p className="text-xs font-bold uppercase tracking-widest">AI Estimator · уже у GRC</p>
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-slate-700">
+              Не разрабатываем с нуля. Инженерный модуль уже работает внутри компании — подключаем к
+              US-потоку: intake → структурированный пакет → расчёт → CRM.
+            </p>
+            <p className="mt-3 text-sm font-medium text-violet-900">
+              Инженер получает не переписку из WhatsApp, а подготовленную карточку задачи.
+            </p>
+          </div>
         </div>
+      </FadeUp>
 
-        <div className="lg:bg-slate-50 lg:p-6">
-          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">
-            Постоянно · не ждут заявки
-          </p>
-
-          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-blue-700">
-            Общий путь — оба сценария
-          </p>
-          <ul className="space-y-3">
-            {commonPath.map((step) => (
-              <li key={step.label} className="rounded-lg border border-slate-200 bg-white p-3">
-                <p className="text-sm font-semibold text-slate-900">{step.label}</p>
-                <p className="mt-0.5 text-xs text-slate-500">{step.desc}</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{step.detail}</p>
-              </li>
-            ))}
-          </ul>
-
-          <p className="mb-3 mt-8 text-xs font-bold uppercase tracking-widest text-violet-700">
-            В фоне
-          </p>
-          <ul className="space-y-3">
-            {backgroundEngines.map((eng) => (
-              <li key={eng.label} className="rounded-lg border border-violet-200 bg-violet-50/50 p-3">
-                <p className="text-sm font-semibold text-slate-900">{eng.label}</p>
-                <p className="mt-0.5 text-xs text-violet-700">{eng.desc}</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{eng.detail}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </FadeUp>
+      <FadeUp>
+        <Callout variant="punchline">{sectionHeaders.system.punchline}</Callout>
+      </FadeUp>
+    </div>
   );
 }

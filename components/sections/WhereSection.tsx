@@ -1,6 +1,6 @@
 "use client";
 
-import { chainSteps, sectionHeaders, whereColumns } from "@/lib/content";
+import { chainSteps, sectionHeaders, whereColumns, assetsMarketsNote } from "@/lib/content";
 import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 
 export function WhereSection() {
@@ -11,6 +11,10 @@ export function WhereSection() {
         title={sectionHeaders.market.title}
         subtitle={sectionHeaders.market.subtitle}
       />
+
+      <FadeUp className="mb-8">
+        <Callout variant="insight">{assetsMarketsNote}</Callout>
+      </FadeUp>
 
       <div className="grid gap-5 md:grid-cols-3">
         {whereColumns.map((col, i) => (
