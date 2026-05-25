@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Truck, Factory, Layers, Database } from "lucide-react";
-import { caseMarquee, sectionHeaders, whoCards, assetsMarketsNote } from "@/lib/content";
+import { caseMarquee, sectionHeaders, whoCards, usScopeNote } from "@/lib/content";
 import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 import clsx from "clsx";
 
@@ -18,7 +18,7 @@ export function WhoSection() {
       />
 
       <FadeUp className="mb-8">
-        <Callout variant="insight">{assetsMarketsNote}</Callout>
+        <Callout variant="insight">{usScopeNote}</Callout>
       </FadeUp>
 
       <div className="grid gap-5 sm:grid-cols-2">

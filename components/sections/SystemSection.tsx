@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import clsx from "clsx";
 import {
   systemContour,
@@ -8,14 +9,25 @@ import {
   sectionHeaders,
 } from "@/lib/content";
 import { Callout, FadeUp } from "@/components/ui/Section";
-import { ExternalLink, Server, Brain } from "lucide-react";
+import { ExternalLink, Server, Brain, Play } from "lucide-react";
+import { LifecycleDemoModal } from "@/components/sections/LifecycleDemoModal";
 
-function ContourDiagram() {
+function ContourDiagram({ onOpenDemo }: { onOpenDemo: () => void }) {
   return (
     <div className="overflow-x-auto rounded-2xl border-2 border-slate-200 bg-slate-50 p-5 lg:p-6">
-      <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">
-        Контур системы · один хребет
-      </p>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-xs font-bold uppercase tracking-widest text-slate-500">
+          Контур системы · один хребет
+        </p>
+        <button
+          type="button"
+          onClick={onOpenDemo}
+          className="inline-flex items-center gap-2 rounded-full border-2 border-amber-500 bg-white px-4 py-2 text-sm font-bold text-amber-800 shadow-sm transition hover:bg-amber-50"
+        >
+          <Play className="h-4 w-4 fill-amber-600" />
+          Пример одного прохода заявки
+        </button>
+      </div>
       <div className="flex min-w-[640px] flex-wrap items-center gap-1 md:min-w-0 md:flex-nowrap">
         {systemContour.steps.map((step, i) => (
           <div key={step.label} className="flex items-center">
@@ -80,10 +92,13 @@ function ModuleCard({ mod }: { mod: (typeof systemModules)[number] }) {
 }
 
 export function SystemSection() {
+  const [demoOpen, setDemoOpen] = useState(false);
+
   return (
     <div className="space-y-10">
+      <LifecycleDemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
       <FadeUp>
-        <ContourDiagram />
+        <ContourDiagram onOpenDemo={() => setDemoOpen(true)} />
       </FadeUp>
 
       <FadeUp>
@@ -129,7 +144,7 @@ export function SystemSection() {
               US-потоку: intake → структурированный пакет → расчёт → CRM.
             </p>
             <p className="mt-3 text-sm font-medium text-violet-900">
-              Инженер получает не переписку из WhatsApp, а подготовленную карточку задачи.
+              Инженер получает не хаос из переписки, а подготовленную карточку задачи.
             </p>
           </div>
         </div>

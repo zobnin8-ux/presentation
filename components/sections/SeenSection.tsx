@@ -14,6 +14,58 @@ import {
 import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 import { Mail, Send, Globe, ExternalLink, BarChart3 } from "lucide-react";
 
+function AuthorSidebar() {
+  const { author } = siteConfig;
+
+  return (
+    <div className="lg:sticky lg:top-8 lg:self-start">
+      <div className="rounded-2xl border-2 border-slate-200 bg-white p-5 shadow-sm">
+        <div className="overflow-hidden rounded-xl bg-gradient-to-br from-amber-600 to-slate-800 p-1 shadow-md">
+          <Image
+            src={author.photo}
+            alt={author.name}
+            width={120}
+            height={120}
+            className="h-[120px] w-full rounded-[10px] object-cover object-top"
+          />
+        </div>
+        <p className="mt-4 font-display text-lg font-bold text-slate-900">{author.name}</p>
+        <p className="text-sm font-medium text-amber-800">{author.role}</p>
+        <p className="mt-2 text-xs leading-relaxed text-slate-500">
+          Анализ · черновики · US demo
+        </p>
+        <div className="mt-5 flex flex-col gap-3 border-t border-slate-100 pt-4 text-sm">
+          <a
+            href={`mailto:${author.email}`}
+            className="inline-flex items-center gap-2 font-medium text-slate-700 hover:text-amber-700"
+          >
+            <Mail className="h-4 w-4 shrink-0 text-amber-600" />
+            {author.email}
+          </a>
+          <a
+            href={author.telegram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-medium text-slate-700 hover:text-amber-700"
+          >
+            <Send className="h-4 w-4 shrink-0 text-amber-600" />
+            {author.telegramLabel}
+          </a>
+          <a
+            href={author.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-medium text-slate-700 hover:text-amber-700"
+          >
+            <Globe className="h-4 w-4 shrink-0 text-amber-600" />
+            {author.websiteLabel}
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ScoreBadge({ score, status }: { score: number; status: string }) {
   return (
     <div className="flex items-baseline gap-3">
@@ -162,8 +214,6 @@ function DraftRuBlock() {
 }
 
 export function SeenSection() {
-  const { author } = siteConfig;
-
   return (
     <Panel>
       <PanelHeader
@@ -172,65 +222,26 @@ export function SeenSection() {
         subtitle={sectionHeaders.seen.subtitle}
       />
 
-      <FadeUp className="mb-8">
-        <Callout variant="insight">{sectionHeaders.seen.insight}</Callout>
-      </FadeUp>
+      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(220px,260px)_1fr]">
+        <AuthorSidebar />
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <AuditBlock audit={siteAuditGrc} />
-        <AuditBlock audit={siteAuditTiss} delay={0.04} />
-        <DraftUsBlock />
-        <DraftRuBlock />
-      </div>
-
-      <FadeUp className="mt-10">
-        <Callout variant="punchline">{sectionHeaders.seen.punchline}</Callout>
-      </FadeUp>
-
-      <FadeUp className="mt-10 flex flex-wrap items-center gap-6 border-t border-slate-200 pt-8">
-        <div className="overflow-hidden rounded-xl bg-gradient-to-br from-amber-600 to-slate-800 p-1 shadow-md">
-          <Image
-            src={author.photo}
-            alt={author.name}
-            width={72}
-            height={72}
-            className="h-[72px] w-[72px] rounded-[10px] object-cover object-top"
-          />
-        </div>
         <div>
-          <p className="font-semibold text-slate-900">
-            {author.name} · {author.role}
-          </p>
-          <p className="mt-1 text-sm text-slate-500">Анализ · черновики · предложение GRC → US</p>
-          <div className="mt-3 flex flex-wrap gap-3 text-sm">
-            <a
-              href={`mailto:${author.email}`}
-              className="inline-flex items-center gap-1.5 text-slate-600 hover:text-amber-700"
-            >
-              <Mail className="h-3.5 w-3.5" />
-              {author.email}
-            </a>
-            <a
-              href={author.telegram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-slate-600 hover:text-amber-700"
-            >
-              <Send className="h-3.5 w-3.5" />
-              {author.telegramLabel}
-            </a>
-            <a
-              href={author.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-slate-600 hover:text-amber-700"
-            >
-              <Globe className="h-3.5 w-3.5" />
-              {author.websiteLabel}
-            </a>
+          <FadeUp className="mb-8">
+            <Callout variant="insight">{sectionHeaders.seen.insight}</Callout>
+          </FadeUp>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            <AuditBlock audit={siteAuditGrc} />
+            <AuditBlock audit={siteAuditTiss} delay={0.04} />
+            <DraftUsBlock />
+            <DraftRuBlock />
           </div>
+
+          <FadeUp className="mt-10">
+            <Callout variant="punchline">{sectionHeaders.seen.punchline}</Callout>
+          </FadeUp>
         </div>
-      </FadeUp>
+      </div>
     </Panel>
   );
 }

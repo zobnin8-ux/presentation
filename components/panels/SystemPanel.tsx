@@ -2,7 +2,6 @@
 
 import { sectionHeaders } from "@/lib/content";
 import { SystemSection } from "@/components/sections/SystemSection";
-import { LifecycleDemoSection } from "@/components/sections/DemoSection";
 import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 
 export function SystemPanel() {
@@ -19,7 +18,6 @@ export function SystemPanel() {
         </FadeUp>
       </Panel>
       <SystemSection />
-      <LifecycleDemoSection />
     </div>
   );
 }

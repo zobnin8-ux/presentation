@@ -71,9 +71,9 @@ export function PresentationShell() {
             return (
               <div key={section.id}>
                 {showDivider && (
-                  <div className="my-4 px-2">
+                  <div className="my-5 px-2">
                     <div className="h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
-                    <p className="mt-3 text-[10px] font-bold uppercase tracking-widest text-amber-700/80">
+                    <p className="mt-4 font-display text-sm font-bold leading-snug text-amber-800">
                       {proposalDividerLabel}
                     </p>
                   </div>

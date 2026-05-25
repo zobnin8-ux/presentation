@@ -1,6 +1,6 @@
 "use client";
 
-import { chainSteps, sectionHeaders, whereColumns, assetsMarketsNote } from "@/lib/content";
+import { chainSteps, sectionHeaders, whereColumns, usScopeNote } from "@/lib/content";
 import { Callout, FadeUp, Panel, PanelHeader } from "@/components/ui/Section";
 
 export function WhereSection() {
@@ -13,7 +13,7 @@ export function WhereSection() {
       />
 
       <FadeUp className="mb-8">
-        <Callout variant="insight">{assetsMarketsNote}</Callout>
+        <Callout variant="insight">{usScopeNote}</Callout>
       </FadeUp>
 
       <div className="grid gap-5 md:grid-cols-3">
