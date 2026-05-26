@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -56,21 +55,16 @@ export function ArchitectureSlideModal({ open, onClose, src, alt }: Props) {
             >
               <X className="h-6 w-6" />
             </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="relative min-h-0 flex-1 overflow-hidden rounded-xl ring-4 ring-amber-500/70 shadow-2xl"
-              aria-label="Закрыть слайд"
-            >
-              <Image
+            <div className="flex min-h-0 flex-1 items-center justify-center overflow-auto rounded-xl bg-slate-950 ring-4 ring-amber-500/70 shadow-2xl">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={src}
                 alt={alt}
-                fill
-                className="cursor-pointer object-contain"
-                sizes="100vw"
-                priority
+                onClick={onClose}
+                className="max-h-full max-w-full cursor-pointer object-contain"
+                decoding="async"
               />
-            </button>
+            </div>
             <p className="mt-2 shrink-0 text-center text-xs text-slate-500">
               Клик по слайду · фону · крестику или Esc — закрыть
             </p>

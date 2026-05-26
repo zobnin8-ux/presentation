@@ -27,8 +27,9 @@ function ArchitecturePreview({ onOpen }: { onOpen: () => void }) {
           src={architectureSlide.image}
           alt=""
           fill
+          unoptimized
           className="object-cover object-center transition duration-300 group-hover:scale-105"
-          sizes="128px"
+          sizes="160px"
         />
         <span className="absolute inset-0 flex items-center justify-center bg-slate-950/30 transition group-hover:bg-slate-950/50">
           <ZoomIn className="h-7 w-7 text-amber-400 drop-shadow-lg transition group-hover:scale-110" />
