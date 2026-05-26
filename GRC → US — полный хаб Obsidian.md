@@ -11,7 +11,7 @@ tags:
   - obsidian
   - hub
 status: active
-version: "2.1"
+version: "2.2"
 updated: 2026-05-25
 author: AndreiZobnin
 confidential: true
@@ -48,6 +48,7 @@ confidential: true
 | README dev | [[README]] |
 | Промпт ChatGPT · слайд архитектуры (21:9) | [[Prompt — слайд архитектура системы GRC-US (ChatGPT)]] |
 | **Техархитектура · сервисы · смета (исполнитель)** | [[GRC → US — техархитектура и экономика (исполнитель)]] |
+| **Личный кабинет клиента (формулировки + demo)** | `lib/content.ts` → `clientPortalUnit`, `clientPortalDemo` · `components/sections/ClientPortalDemoModal.tsx` |
 | Site Doctor · 1grc.ru | https://www.sitedoctor.live/report/e3e1f683-224c-45b1-87f9-626b0a75c757 |
 | Site Doctor · TISS | https://www.sitedoctor.live/scanning/92586a27-c8b9-4824-a75d-f3579d3aa7fc |
 | Site Doctor (главная) | https://www.sitedoctor.live |
@@ -191,7 +192,7 @@ confidential: true
 
 ```
 US-сайт → Intake 24/7 → [planned | emergency] → AI Estimator (у GRC)
-    → CRM → Документы → Выезд → Отчёт → Повтор
+    → CRM → Документы → Выезд → Отчёт → Кабинет клиента → Повтор
          ↑                                    ↑
     Память ОС                          Память объекта
 ```
@@ -222,11 +223,23 @@ US-сайт → Intake 24/7 → [planned | emergency] → AI Estimator (у GRC)
 
 Файл: `components/sections/LifecycleDemoModal.tsx`
 
+### Демо «Личный кабинет клиента» (в коде)
+
+- Кнопка у контура: **«Личный кабинет клиента»** → **modal**  
+- 3 экрана: Dashboard → Request → Docs/Upload  
+- MVP: **scope + next step** в интерфейсе, **цена только в PDF**  
+
+Файл: `components/sections/ClientPortalDemoModal.tsx`
+
 ### Слайд «вся архитектура» (вне кода)
 
 - **Не** встроен в Next.js как full-system demo  
 - Генерация: [[Prompt — слайд архитектура системы GRC-US (ChatGPT)]] → HTML 2560×1080 → PNG  
 - На встрече: **«карта архитектуры US-контура»**, не «demo системы»
+
+### Иконка вкладки (favicon)
+
+- Кастомная технологичная иконка: `app/icon.svg` (slate + amber)
 
 ---
 
@@ -272,7 +285,7 @@ US-сайт → Intake 24/7 → [planned | emergency] → AI Estimator (у GRC)
 1. **Scope:** отдельная инфраструктура US — остальное вне scope  
 2. **Risk:** рынок не увидит работу без системы  
 
-### Пять вопросов на встречу (финал)
+### Вопросы на встречу (финал)
 
 1. Подтверждаем **отдельный американский pipeline** (сайт, intake, CRM для US) — не перестройку всего GRC?  
 2. **Emergency:** кому SMS и эскалация — один диспетчер, смена, часовой пояс?  
@@ -280,7 +293,10 @@ US-сайт → Intake 24/7 → [planned | emergency] → AI Estimator (у GRC)
 4. **US-сайт:** что из demo в production первым — кейсы EN, фото, реквизиты, формы?  
 5. **Какие кейсы с 1grc.ru** переводим и публикуем первыми?
 
-**Намеренно не спрашиваем:** ЛПР по запуску, Gulf Coast как регион, «что в must-have к 30 дням» (уже в 05), CRM-вендор, COI на старте.
+6. **Кто будет single point of contact** у клиента (maintenance / plant engineer)?  
+7. **Что клиент должен видеть, чтобы быстрее approve estimate:** scope+next step в UI, а цена — только в PDF?
+
+**Намеренно не спрашиваем:** Gulf Coast как регион, «что в must-have к 30 дням» (уже в 05), CRM-вендор, COI на старте.
 
 ---
 
@@ -441,4 +457,4 @@ Remote: https://github.com/zobnin8-ux/presentation
 
 ---
 
-*Версия хаба: 2.1 · обновляйте `updated` в frontmatter при крупных изменениях презентации или сайта.*
+*Версия хаба: 2.2 · обновляйте `updated` в frontmatter при крупных изменениях презентации или сайта.*
