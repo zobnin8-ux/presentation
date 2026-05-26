@@ -1,6 +1,6 @@
 export const siteConfig = {
   author: {
-    name: "AndreiZobnin",
+    name: "Andrei Zobnin",
     role: "Архитектор системы",
     email: "zobnin8@gmail.com",
     telegram: "https://t.me/A_nubi_ss",
@@ -78,7 +78,7 @@ export type PresentationSectionId = (typeof presentationSections)[number]["id"];
 
 export const shellIntro = {
   title: "GRC → US",
-  tagline: "Предложение · AndreiZobnin",
+  tagline: "Предложение · Andrei Zobnin",
   note: "Операционная система для выхода на US-рынок · кликайте пункт слева",
 };
 
@@ -254,7 +254,7 @@ export const hero = {
   badge: "Выход GRC в США",
   title: "Сервисная инфраструктура для американского рынка",
   subtitle:
-    "Предложение AndreiZobnin: система, которая делает то же, что вы на объекте — до и после выезда бригады.",
+    "Предложение Andrei Zobnin: система, которая делает то же, что вы на объекте — до и после выезда бригады.",
   bullets: [
     "Выездной формат (field-first): мобильные станки с ЧПУ, ремонт без демонтажа",
     "Единая система вместо разрозненных каналов, PDF в папках и памяти отдельных инженеров",

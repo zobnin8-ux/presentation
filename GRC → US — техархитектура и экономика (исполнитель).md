@@ -8,7 +8,7 @@ tags:
   - confidential
 status: draft
 updated: 2026-05-25
-author: AndreiZobnin
+author: Andrei Zobnin
 ---
 
 # GRC → US · техархитектура, сервисы, кто платит, смета работ

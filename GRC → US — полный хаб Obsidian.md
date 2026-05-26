@@ -13,7 +13,7 @@ tags:
 status: active
 version: "2.2"
 updated: 2026-05-25
-author: AndreiZobnin
+author: Andrei Zobnin
 confidential: true
 ---
 
@@ -402,7 +402,7 @@ Remote: https://github.com/zobnin8-ux/presentation
 
 | Поле | Значение |
 |------|----------|
-| Имя | AndreiZobnin |
+| Имя | Andrei Zobnin |
 | Роль | Архитектор системы |
 | Email | zobnin8@gmail.com |
 | Telegram | @A_nubi_ss · https://t.me/A_nubi_ss |
