@@ -30,6 +30,25 @@ This repo is the **pitch deck** (not the US production site).
 - `components/panels/*` — right-side panels
 - `lib/content.ts` — **all copy**, modules, plan stages, CTA questions, demo data
 
+## Viewing (important)
+
+- **Desktop or tablet landscape only.** The deck is a fixed split-panel layout (sidebar + content), not a mobile site.
+- When sharing the link, ask recipients to open it **from a computer** (or a tablet turned sideways).
+
+## Section 05 · Plan (4 stages)
+
+Timeline copy lives in `lib/content.ts` → `planOverview` + `planStages`.
+
+| Stage | Duration | Focus |
+|-------|----------|--------|
+| 1 | 6–10 weeks | Foundation: site → CRM → emergency SMS → AI Estimator bridge; phone 24/7 in a second wave |
+| 2 | 6–8 weeks | Cases, SEO, direct outreach |
+| 3 | 4–6 weeks | Client portal MVP (after stable intake + CRM) |
+| 4 | 8–10 weeks | Site docs, turnaround radar, reports, object memory, internal ops layer |
+
+**Headline on deck:** ~6 months · footnote: full working contour up to ~8 months.  
+**Per-stage durations:** weeks only (no fractional months in the UI).
+
 ## Editing content (most common)
 
 ### Update copy

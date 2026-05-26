@@ -29,9 +29,6 @@ export function PlanSection() {
             >
               <p className="text-xs font-bold uppercase tracking-wider text-amber-700">{s.stage}</p>
               <p className="mt-1 font-display text-lg font-bold text-slate-900">{s.period}</p>
-              {"periodHint" in s && s.periodHint && (
-                <p className="text-xs text-slate-500">{s.periodHint}</p>
-              )}
               <p className="mt-2 text-sm font-medium leading-snug text-slate-600">{s.title}</p>
             </button>
           );
@@ -42,7 +39,6 @@ export function PlanSection() {
         <div className="rounded-2xl border-2 border-slate-200 bg-white p-6 lg:p-8">
           <p className="text-sm font-semibold uppercase tracking-widest text-amber-700">
             {stage.stage} · {stage.period}
-            {"periodHint" in stage && stage.periodHint ? ` · ${stage.periodHint}` : ""}
           </p>
           <h3 className="mt-2 font-display text-xl font-bold text-slate-900">{stage.title}</h3>
           <p className="mt-3 text-base font-medium leading-relaxed text-slate-800">{stage.headline}</p>
