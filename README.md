@@ -5,6 +5,9 @@ Split‑panel, one‑page deck that explains the **US contour** for GRC: context
 - **Live deck (Vercel):** see the deployments for this repo
 - **Source of truth for copy:** `lib/content.ts`
 - **Internal hub (Obsidian):** `GRC → US — полный хаб Obsidian.md` (do not share with client)
+- **Commercial proposal (internal):** `GRC → US — коммерческое предложение.md` — **$43,000** · 4 stages (do not share until ready)
+- **Commercial proposal (Word):** `GRC → US — коммерческое предложение.docx` — regenerate: `python scripts/build_kp_docx.py`
+- **Architecture & subscriptions (internal):** `GRC → US — техархитектура и подписки.md` · Word: `python scripts/build_arch_docx.py`
 
 ## Quick start
 
