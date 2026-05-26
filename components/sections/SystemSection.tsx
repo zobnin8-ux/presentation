@@ -1,32 +1,75 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import clsx from "clsx";
 import {
+  architectureSlide,
   systemContour,
   systemModules,
   systemSiteUnit,
   sectionHeaders,
 } from "@/lib/content";
 import { Callout, FadeUp } from "@/components/ui/Section";
-import { ExternalLink, Server, Brain, Play } from "lucide-react";
+import { ExternalLink, Server, Brain, Play, ZoomIn } from "lucide-react";
 import { LifecycleDemoModal } from "@/components/sections/LifecycleDemoModal";
+import { ArchitectureSlideModal } from "@/components/sections/ArchitectureSlideModal";
 
-function ContourDiagram({ onOpenDemo }: { onOpenDemo: () => void }) {
+function ArchitecturePreview({ onOpen }: { onOpen: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="group flex max-w-[min(100%,20rem)] items-stretch gap-3 rounded-xl border-2 border-amber-500 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-2 pr-4 shadow-lg ring-2 ring-amber-400/40 transition hover:scale-[1.02] hover:shadow-xl hover:ring-amber-500"
+    >
+      <span className="relative h-[4.5rem] w-[8rem] shrink-0 overflow-hidden rounded-lg ring-2 ring-amber-500/60">
+        <Image
+          src={architectureSlide.image}
+          alt=""
+          fill
+          className="object-cover object-center transition duration-300 group-hover:scale-105"
+          sizes="128px"
+        />
+        <span className="absolute inset-0 flex items-center justify-center bg-slate-950/30 transition group-hover:bg-slate-950/50">
+          <ZoomIn className="h-7 w-7 text-amber-400 drop-shadow-lg transition group-hover:scale-110" />
+        </span>
+      </span>
+      <span className="flex min-w-0 flex-col justify-center text-left">
+        <span className="font-display text-sm font-bold leading-snug text-amber-400">
+          {architectureSlide.previewLabel}
+        </span>
+        <span className="mt-0.5 text-xs font-medium text-slate-400 group-hover:text-amber-200/90">
+          {architectureSlide.previewHint}
+        </span>
+      </span>
+    </button>
+  );
+}
+
+function ContourDiagram({
+  onOpenArchitecture,
+  onOpenDemo,
+}: {
+  onOpenArchitecture: () => void;
+  onOpenDemo: () => void;
+}) {
   return (
     <div className="overflow-x-auto rounded-2xl border-2 border-slate-200 bg-slate-50 p-5 lg:p-6">
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
         <p className="text-xs font-bold uppercase tracking-widest text-slate-500">
           Контур системы · один хребет
         </p>
-        <button
-          type="button"
-          onClick={onOpenDemo}
-          className="inline-flex items-center gap-2 rounded-full border-2 border-amber-500 bg-white px-4 py-2 text-sm font-bold text-amber-800 shadow-sm transition hover:bg-amber-50"
-        >
-          <Play className="h-4 w-4 fill-amber-600" />
-          Пример одного прохода заявки
-        </button>
+        <div className="flex flex-wrap items-center gap-3">
+          <ArchitecturePreview onOpen={onOpenArchitecture} />
+          <button
+            type="button"
+            onClick={onOpenDemo}
+            className="inline-flex items-center gap-2 rounded-full border-2 border-amber-500 bg-white px-4 py-2 text-sm font-bold text-amber-800 shadow-sm transition hover:bg-amber-50"
+          >
+            <Play className="h-4 w-4 fill-amber-600" />
+            Пример одного прохода заявки
+          </button>
+        </div>
       </div>
       <div className="flex min-w-[640px] flex-wrap items-center gap-1 md:min-w-0 md:flex-nowrap">
         {systemContour.steps.map((step, i) => (
@@ -93,12 +136,22 @@ function ModuleCard({ mod }: { mod: (typeof systemModules)[number] }) {
 
 export function SystemSection() {
   const [demoOpen, setDemoOpen] = useState(false);
+  const [architectureOpen, setArchitectureOpen] = useState(false);
 
   return (
     <div className="space-y-10">
       <LifecycleDemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
+      <ArchitectureSlideModal
+        open={architectureOpen}
+        onClose={() => setArchitectureOpen(false)}
+        src={architectureSlide.image}
+        alt={architectureSlide.alt}
+      />
       <FadeUp>
-        <ContourDiagram onOpenDemo={() => setDemoOpen(true)} />
+        <ContourDiagram
+          onOpenArchitecture={() => setArchitectureOpen(true)}
+          onOpenDemo={() => setDemoOpen(true)}
+        />
       </FadeUp>
 
       <FadeUp>

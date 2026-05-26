@@ -373,6 +373,13 @@ export const pains = [
   },
 ];
 
+export const architectureSlide = {
+  image: "/architecture-us-contour.png",
+  previewLabel: "Как выглядит архитектура системы",
+  previewHint: "Нажмите · открыть слайд",
+  alt: "Архитектура US-контура GRC — от первого касания до повторного заказа",
+} as const;
+
 export const systemContour = {
   steps: [
     { label: "US-сайт", sub: "витрина · proof · intake" },
