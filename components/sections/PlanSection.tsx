@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import clsx from "clsx";
-import { planStages, systemModules } from "@/lib/content";
+import { planStages } from "@/lib/content";
 import { FadeUp } from "@/components/ui/Section";
 import { Check } from "lucide-react";
 
@@ -12,7 +12,7 @@ export function PlanSection() {
 
   return (
     <div>
-      <div className="mb-8 flex flex-col gap-2 sm:flex-row">
+      <div className="mb-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         {planStages.map((s) => {
           const isActive = active === s.id;
           return (
@@ -21,7 +21,7 @@ export function PlanSection() {
               type="button"
               onClick={() => setActive(s.id)}
               className={clsx(
-                "flex-1 rounded-xl border-2 px-4 py-4 text-left transition-all",
+                "rounded-xl border-2 px-4 py-4 text-left transition-all",
                 isActive
                   ? "border-amber-600 bg-amber-50 shadow-sm"
                   : "border-slate-200 bg-white hover:border-amber-200"
@@ -29,7 +29,10 @@ export function PlanSection() {
             >
               <p className="text-xs font-bold uppercase tracking-wider text-amber-700">{s.stage}</p>
               <p className="mt-1 font-display text-lg font-bold text-slate-900">{s.period}</p>
-              <p className="text-sm font-medium text-slate-600">{s.title}</p>
+              {"periodHint" in s && s.periodHint && (
+                <p className="text-xs text-slate-500">{s.periodHint}</p>
+              )}
+              <p className="mt-2 text-sm font-medium leading-snug text-slate-600">{s.title}</p>
             </button>
           );
         })}
@@ -39,21 +42,25 @@ export function PlanSection() {
         <div className="rounded-2xl border-2 border-slate-200 bg-white p-6 lg:p-8">
           <p className="text-sm font-semibold uppercase tracking-widest text-amber-700">
             {stage.stage} · {stage.period}
+            {"periodHint" in stage && stage.periodHint ? ` · ${stage.periodHint}` : ""}
           </p>
           <h3 className="mt-2 font-display text-xl font-bold text-slate-900">{stage.title}</h3>
           <p className="mt-3 text-base font-medium leading-relaxed text-slate-800">{stage.headline}</p>
 
           <p className="mt-2 text-xs font-bold uppercase tracking-wider text-slate-400">
-            Модули системы:{" "}
-            {stage.modules
-              .map((n) => systemModules.find((m) => m.num === n)?.num)
-              .filter(Boolean)
-              .join(", ")}
+            {stage.focus}
           </p>
 
+          {"startWhen" in stage && stage.startWhen && (
+            <p className="mt-4 rounded-lg border border-sky-200 bg-sky-50/60 px-4 py-3 text-sm leading-relaxed text-sky-950">
+              <span className="font-bold">Когда стартуем: </span>
+              {stage.startWhen}
+            </p>
+          )}
+
           {"notDoing" in stage && stage.notDoing && (
-            <p className="mt-5 rounded-lg border border-violet-200 bg-violet-50/60 px-4 py-3 text-sm leading-relaxed text-violet-950">
-              <span className="font-bold">Не делаем: </span>
+            <p className="mt-4 rounded-lg border border-violet-200 bg-violet-50/60 px-4 py-3 text-sm leading-relaxed text-violet-950">
+              <span className="font-bold">Не в этом этапе: </span>
               {stage.notDoing}
             </p>
           )}
