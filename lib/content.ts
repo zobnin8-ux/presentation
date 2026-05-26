@@ -114,14 +114,14 @@ export const sectionHeaders = {
     subtitle:
       "Восемь сценариев, где теряются деньги — ещё до того, как станок выехал на объект.",
     punchline:
-      "Все восемь проблем решает одна сервисная инфраструктура: сайт, intake, CRM, контент, outreach, документы, отчёт и память операционной системы — не восемь разных людей.",
+      "Без клиентского кабинета проект выглядит как «сайт + форма». С кабинетом — как операционная платформа сервиса. Это влияет на доверие и скорость закрытия estimate.",
   },
   system: {
     title: "Что мы строим для GRC на американском рынке",
     subtitle:
-      "В США выигрывает не тот, у кого станки лучше, а тот, кого находят первым и кто отвечает быстрее.",
+      "US‑сайт отвечает за первое касание. Client Portal — за доверие, прозрачность и повторное взаимодействие. Это клиентский интерфейс всей системы.",
     insight:
-      "Ниже — восемь модулей одной системы. US-сайт уже live и входит в контур как отдельный юнит. AI Estimator у GRC уже есть — подключаем к потоку, не разрабатываем с нуля.",
+      "Ниже — восемь модулей одной системы. US‑сайт уже live и входит в контур как отдельный юнит. AI Estimator у GRC уже есть — подключаем к потоку, не разрабатываем с нуля. Client Portal — клиентское «окно», где видны статусы, документы и следующий шаг.",
     punchline:
       "К концу внедрения — от первого касания до повторного заказа. Система не зависит от того, кто сегодня в офисе: память операционной системы живёт в инфраструктуре.",
   },
@@ -390,6 +390,7 @@ export const systemContour = {
     { label: "Документы", sub: "COI · OSHA" },
     { label: "Выезд", sub: "field work" },
     { label: "Отчёт", sub: "PDF 48 ч" },
+    { label: "Client Portal", sub: "статус · next step" },
     { label: "Повтор", sub: "следующий заказ" },
   ],
   memory: {
@@ -397,6 +398,96 @@ export const systemContour = {
     object: "Память объекта — история площадки, ремонтов, фото, расчётов.",
   },
 };
+
+export const clientPortalUnit = {
+  title: "Client Portal — клиентский интерфейс системы",
+  points: [
+    "Dashboard: активные заявки, статус, next step, Create New Request.",
+    "Request page: описание, файлы, AI summary, scope + next step.",
+    "Upload + Documents: фото/видео/планы, скачивание PDF/COI.",
+    "Communication log: comment / callback / confirm / approve (без чата в v1).",
+    "Repeat: Create Similar Request → повторный заказ.",
+  ],
+  note: "Estimator не заменяем — в портале показываем scope + next step (без цены в v1).",
+} as const;
+
+export const clientPortalDemo = {
+  company: "Gulf Coast Steel Services",
+  facility: "Facility A · Houston, TX",
+  manager: {
+    name: "GRC Service Manager",
+    phone: "+1 (713) 555‑0198",
+    email: "service@grc-us.com",
+  },
+  requests: [
+    {
+      id: "REQ‑1042",
+      type: "Emergency",
+      status: "Under Review",
+      nextStep: "Confirm access window",
+      updated: "Today · 14:12",
+    },
+    {
+      id: "REQ‑1039",
+      type: "Planned",
+      status: "Estimate Prepared",
+      nextStep: "Approve preliminary scope",
+      updated: "Today · 10:40",
+    },
+    {
+      id: "REQ‑1031",
+      type: "Planned",
+      status: "Completed",
+      nextStep: "Create Similar Request",
+      updated: "May 19 · 16:05",
+    },
+  ],
+  requestDetail: {
+    id: "REQ‑1039",
+    title: "On-site repair · bearing seat restoration",
+    facility: "Facility A · Houston, TX",
+    priority: "Normal",
+    created: "May 25 · 09:18",
+    lastUpdate: "Today · 10:40",
+    statuses: [
+      "Submitted",
+      "Under Review",
+      "Estimate Prepared",
+      "Awaiting Approval",
+      "Scheduled",
+      "In Progress",
+      "Completed",
+      "Follow-up",
+    ],
+    activeStatus: "Estimate Prepared",
+    aiSummary:
+      "Symptoms indicate wear of bearing seat; preliminary scope prepared. Field inspection required to confirm tolerances and finalize quote.",
+    scopeBullets: [
+      "Field machining of bearing seat",
+      "Surface prep + measurement report",
+      "Access and safety requirements review",
+    ],
+    nextStep: "Confirm access window and approve preliminary scope.",
+    disclaimer: "Preliminary scope. Final quote provided as PDF after field inspection.",
+    comms: [
+      { at: "09:22", text: "GRC requested additional photos of the seat area." },
+      { at: "10:05", text: "Client uploaded 3 photos and access instructions." },
+      { at: "10:40", text: "Estimate prepared. PDF available in Documents." },
+    ],
+    documents: [
+      { name: "Estimate_REQ‑1039_preliminary.pdf", category: "Estimates" },
+      { name: "COI_2026.pdf", category: "Compliance" },
+    ],
+  },
+  documents: {
+    tabs: ["Estimates", "Compliance", "Reports"],
+    files: [
+      { name: "Estimate_REQ‑1039_preliminary.pdf", date: "May 25" },
+      { name: "COI_2026.pdf", date: "May 02" },
+      { name: "Completion_Report_REQ‑1031.pdf", date: "May 19" },
+    ],
+  },
+} as const;
 
 export const systemSiteUnit = {
   title: "US-сайт — юнит системы, уже live",
@@ -669,6 +760,7 @@ export const planStages = [
       "Emergency-контур: SMS диспетчеру, автоответ клиенту, таймер 15 мин, эскалация.",
       "CRM: стадии US B2B-цикла, карточка клиента и объекта, первые автонапоминания.",
       "Диспетчеризация: кто получает SMS, ротация, правила «кто отвечает ночью».",
+      "Client Portal v1 подключаем после стабилизации intake+CRM: статусы, документы, upload, approval (без чата).",
     ],
     running: [
       "Intake принимает заявки с сайта и телефона 24/7.",
@@ -858,6 +950,8 @@ export const ctaQuestions = [
   "AI Estimator: какие типы оборудования уже закрыты — что подключаем к US-intake первым?",
   "US-сайт: что из demo идёт в production первым — кейсы на английском, фото, реквизиты, рабочие формы?",
   "Какие кейсы с 1grc.ru переводим и публикуем первыми?",
+  "Кто будет single point of contact у клиента (maintenance / plant engineer)?",
+  "Что клиент должен видеть, чтобы быстрее approve estimate: scope+next step в UI, а цена — только в PDF?",
 ];
 
 export const demoSteps = [

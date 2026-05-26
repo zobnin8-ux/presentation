@@ -47,6 +47,7 @@ confidential: true
 | Секции UI | `components/sections/*` · `components/panels/*` |
 | README dev | [[README]] |
 | Промпт ChatGPT · слайд архитектуры (21:9) | [[Prompt — слайд архитектура системы GRC-US (ChatGPT)]] |
+| **Техархитектура · сервисы · смета (исполнитель)** | [[GRC → US — техархитектура и экономика (исполнитель)]] |
 | Site Doctor · 1grc.ru | https://www.sitedoctor.live/report/e3e1f683-224c-45b1-87f9-626b0a75c757 |
 | Site Doctor · TISS | https://www.sitedoctor.live/scanning/92586a27-c8b9-4824-a75d-f3579d3aa7fc |
 | Site Doctor (главная) | https://www.sitedoctor.live |

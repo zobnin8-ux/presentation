@@ -5,15 +5,17 @@ import Image from "next/image";
 import clsx from "clsx";
 import {
   architectureSlide,
+  clientPortalUnit,
   systemContour,
   systemModules,
   systemSiteUnit,
   sectionHeaders,
 } from "@/lib/content";
 import { Callout, FadeUp } from "@/components/ui/Section";
-import { ExternalLink, Server, Brain, Play, ZoomIn } from "lucide-react";
+import { ExternalLink, Server, Brain, Play, ZoomIn, LayoutDashboard } from "lucide-react";
 import { LifecycleDemoModal } from "@/components/sections/LifecycleDemoModal";
 import { ArchitectureSlideModal } from "@/components/sections/ArchitectureSlideModal";
+import { ClientPortalDemoModal } from "@/components/sections/ClientPortalDemoModal";
 
 function ArchitecturePreview({ onOpen }: { onOpen: () => void }) {
   return (
@@ -50,9 +52,11 @@ function ArchitecturePreview({ onOpen }: { onOpen: () => void }) {
 function ContourDiagram({
   onOpenArchitecture,
   onOpenDemo,
+  onOpenPortalDemo,
 }: {
   onOpenArchitecture: () => void;
   onOpenDemo: () => void;
+  onOpenPortalDemo: () => void;
 }) {
   return (
     <div className="overflow-x-auto rounded-2xl border-2 border-slate-200 bg-slate-50 p-5 lg:p-6">
@@ -64,6 +68,14 @@ function ContourDiagram({
           <ArchitecturePreview onOpen={onOpenArchitecture} />
           <button
             type="button"
+            onClick={onOpenPortalDemo}
+            className="inline-flex items-center gap-2 rounded-full border-2 border-slate-700 bg-slate-900 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-slate-800"
+          >
+            <LayoutDashboard className="h-4 w-4 text-amber-400" />
+            Demo: Client Portal
+          </button>
+          <button
+            type="button"
             onClick={onOpenDemo}
             className="inline-flex items-center gap-2 rounded-full border-2 border-amber-500 bg-white px-4 py-2 text-sm font-bold text-amber-800 shadow-sm transition hover:bg-amber-50"
           >
@@ -72,6 +84,9 @@ function ContourDiagram({
           </button>
         </div>
       </div>
+      <p className="mb-4 text-sm font-semibold text-slate-700">
+        Сайт приводит заявку. Портал удерживает доверие и ведёт к повторному заказу.
+      </p>
       <div className="flex min-w-[640px] flex-wrap items-center gap-1 md:min-w-0 md:flex-nowrap">
         {systemContour.steps.map((step, i) => (
           <div key={step.label} className="flex items-center">
@@ -82,13 +97,24 @@ function ContourDiagram({
                   ? "border border-amber-300 bg-amber-50"
                   : step.label.includes("Estimator")
                     ? "border border-violet-200 bg-violet-50"
+                    : step.label.includes("Portal")
+                      ? "border border-slate-300 bg-slate-900 text-white"
                     : step.label.includes("US-сайт")
                       ? "border-2 border-amber-500 bg-white"
                       : "border border-slate-200 bg-white"
               )}
             >
-              <p className="text-xs font-bold text-slate-900">{step.label}</p>
-              <p className="text-[10px] text-slate-500">{step.sub}</p>
+              <p
+                className={clsx(
+                  "text-xs font-bold",
+                  step.label.includes("Portal") ? "text-white" : "text-slate-900"
+                )}
+              >
+                {step.label}
+              </p>
+              <p className={clsx("text-[10px]", step.label.includes("Portal") ? "text-slate-300" : "text-slate-500")}>
+                {step.sub}
+              </p>
             </div>
             {i < systemContour.steps.length - 1 && (
               <span className="mx-0.5 text-slate-300">→</span>
@@ -138,10 +164,12 @@ function ModuleCard({ mod }: { mod: (typeof systemModules)[number] }) {
 export function SystemSection() {
   const [demoOpen, setDemoOpen] = useState(false);
   const [architectureOpen, setArchitectureOpen] = useState(false);
+  const [portalDemoOpen, setPortalDemoOpen] = useState(false);
 
   return (
     <div className="space-y-10">
       <LifecycleDemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
+      <ClientPortalDemoModal open={portalDemoOpen} onClose={() => setPortalDemoOpen(false)} />
       <ArchitectureSlideModal
         open={architectureOpen}
         onClose={() => setArchitectureOpen(false)}
@@ -152,6 +180,7 @@ export function SystemSection() {
         <ContourDiagram
           onOpenArchitecture={() => setArchitectureOpen(true)}
           onOpenDemo={() => setDemoOpen(true)}
+          onOpenPortalDemo={() => setPortalDemoOpen(true)}
         />
       </FadeUp>
 
@@ -188,18 +217,36 @@ export function SystemSection() {
             </a>
           </div>
 
-          <div className="rounded-2xl border-2 border-violet-200 bg-violet-50/40 p-6">
-            <div className="flex items-center gap-2 text-violet-700">
-              <Brain className="h-5 w-5" />
-              <p className="text-xs font-bold uppercase tracking-widest">AI Estimator · уже у GRC</p>
+          <div className="space-y-5">
+            <div className="rounded-2xl border-2 border-violet-200 bg-violet-50/40 p-6">
+              <div className="flex items-center gap-2 text-violet-700">
+                <Brain className="h-5 w-5" />
+                <p className="text-xs font-bold uppercase tracking-widest">AI Estimator · уже у GRC</p>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-slate-700">
+                Не разрабатываем с нуля. Инженерный модуль уже работает внутри компании — подключаем к
+                US-потоку: intake → структурированный пакет → расчёт → CRM.
+              </p>
+              <p className="mt-3 text-sm font-medium text-violet-900">
+                Инженер получает не хаос из переписки, а подготовленную карточку задачи.
+              </p>
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-slate-700">
-              Не разрабатываем с нуля. Инженерный модуль уже работает внутри компании — подключаем к
-              US-потоку: intake → структурированный пакет → расчёт → CRM.
-            </p>
-            <p className="mt-3 text-sm font-medium text-violet-900">
-              Инженер получает не хаос из переписки, а подготовленную карточку задачи.
-            </p>
+
+            <div className="rounded-2xl border-2 border-slate-700 bg-gradient-to-br from-slate-950 to-slate-900 p-6 text-white shadow-lg">
+              <div className="flex items-center gap-2 text-amber-300">
+                <LayoutDashboard className="h-5 w-5" />
+                <p className="text-xs font-bold uppercase tracking-widest">{clientPortalUnit.title}</p>
+              </div>
+              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-slate-200">
+                {clientPortalUnit.points.map((p) => (
+                  <li key={p}>· {p}</li>
+                ))}
+              </ul>
+              <p className="mt-4 rounded-lg border border-violet-500/40 bg-violet-950/30 px-4 py-3 text-sm text-violet-100">
+                <span className="font-bold">Важно: </span>
+                {clientPortalUnit.note}
+              </p>
+            </div>
           </div>
         </div>
       </FadeUp>
