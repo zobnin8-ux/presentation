@@ -105,6 +105,9 @@ def add_stage_block(
     doc: Document,
     title: str,
     weeks: str,
+    price: str,
+    payment_start: str,
+    payment_end: str,
     focus: str,
     works_sections: list[tuple[str, list[str]]],
     result: list[str],
@@ -114,11 +117,20 @@ def add_stage_block(
 ) -> None:
     add_heading(doc, title, level=3)
     meta = doc.add_paragraph()
-    r1 = meta.add_run(f"Срок: {weeks}")
+    r1 = meta.add_run(f"Срок: {weeks}    ")
     r1.bold = True
     r1.font.color.rgb = AMBER
     r1.font.size = Pt(11)
-    meta.paragraph_format.space_after = Pt(6)
+    r2 = meta.add_run(f"Стоимость работ: {price}")
+    r2.bold = True
+    r2.font.size = Pt(11)
+    r2.font.color.rgb = SLATE
+    meta.paragraph_format.space_after = Pt(4)
+    pay = doc.add_paragraph()
+    pr = pay.add_run(f"Оплата: {payment_start} — старт этапа  ·  {payment_end} — после приёмки")
+    pr.font.size = Pt(10)
+    pr.font.color.rgb = SLATE_MID
+    pay.paragraph_format.space_after = Pt(6)
 
     add_para(doc, focus, bold=True, size=10, space_after=6)
     if start_note:
@@ -182,12 +194,6 @@ def build() -> None:
         doc,
         "Формат: поэтапное внедрение · согласование и приёмка по этапам · сервисы — на аккаунтах GRC.",
         size=11,
-    )
-    add_para(
-        doc,
-        "Стоимость работ и схема оплаты — в приложении в конце документа, после описания этапов.",
-        size=10,
-        space_after=12,
     )
     doc.add_paragraph()
 
@@ -283,16 +289,32 @@ def build() -> None:
     doc.add_paragraph()
 
     # 3
-    add_heading(doc, "3. Этапы внедрения", level=2)
+    add_heading(doc, "3. Этапы внедрения и стоимость работ", level=2)
     add_para(
         doc,
-        "Четыре этапа с понятной сдачей. Сроки — в неделях. Календарь зависит от согласований и доступов GRC.",
+        "Четыре этапа · сроки в неделях · оплата 50% на старт и 50% после приёмки каждого этапа. "
+        "Ориентир программы: ~6 месяцев; полный контур — до 8 месяцев.",
         size=10,
+        space_after=8,
+    )
+
+    add_heading(doc, "Сводка: сколько платит GRC за работы исполнителя", level=3)
+    add_table(
+        doc,
+        ["Этап", "Срок", "Стоимость", "Старт (50%)", "После приёмки (50%)"],
+        [
+            ["1 · Фундамент", "6–10 нед", "$13 000", "$6 500", "$6 500"],
+            ["2 · Видимость", "6–8 нед", "$10 000", "$5 000", "$5 000"],
+            ["3 · Личный кабинет", "4–6 нед", "$9 000", "$4 500", "$4 500"],
+            ["4 · Масштаб", "8–10 нед", "$11 000", "$5 500", "$5 500"],
+            ["Итого программа", "~7–9 мес", "$43 000", "$21 500", "$21 500"],
+        ],
+        [1.1, 0.75, 0.85, 0.85, 0.95],
     )
     add_para(
         doc,
-        "Ориентир по программе: ~6 месяцев до рабочего контура; полный контур — до 8 месяцев.",
-        size=10,
+        "Входной вариант: можно начать только с этапа 1 ($13 000). Этапы 2–4 — после приёмки предыдущего.",
+        size=9,
         space_after=10,
     )
 
@@ -300,6 +322,9 @@ def build() -> None:
         doc,
         "Этап 1 · Фундамент: заявка не теряется",
         "6–10 недель",
+        "$13 000",
+        "$6 500",
+        "$6 500",
         "Фокус: модули 1–3 · приём заявок, аварийный отклик, CRM",
         [
             ("Недели 1–2 — подготовка", [
@@ -332,6 +357,9 @@ def build() -> None:
         doc,
         "Этап 2 · Вас находят и выходите на людей",
         "6–8 недель",
+        "$10 000",
+        "$5 000",
+        "$5 000",
         "Фокус: модули 4–5 · контент и прямой выход",
         [
             ("Работы", [
@@ -355,6 +383,9 @@ def build() -> None:
         doc,
         "Этап 3 · Личный кабинет клиента (MVP)",
         "4–6 недель",
+        "$9 000",
+        "$4 500",
+        "$4 500",
         "Фокус: личный кабинет · слой поверх CRM",
         [
             ("Работы", [
@@ -377,6 +408,9 @@ def build() -> None:
         doc,
         "Этап 4 · Крупные контракты и повторные заказы",
         "8–10 недель",
+        "$11 000",
+        "$5 500",
+        "$5 500",
         "Фокус: модули 6–8 · документы, радар, отчёты, память",
         [
             ("Работы", [
@@ -421,10 +455,11 @@ def build() -> None:
     )
 
     # 6 — расходы GRC (их инфраструктура, не гонорар исполнителя)
-    add_heading(doc, "6. Расходы GRC на инфраструктуру", level=2)
+    add_heading(doc, "6. Расходы GRC на инфраструктуру (не входят в $43 000)", level=2)
     add_para(
         doc,
-        "Оплачиваются напрямую GRC со своих аккаунтов — отдельно от работ исполнителя.",
+        "Это подписки и сервисы на аккаунтах GRC — Twilio, CRM, хостинг, AI API и т.д. "
+        "Оплачиваются напрямую GRC. Не путать со стоимостью работ исполнителя в §3.",
         size=10,
     )
     add_heading(doc, "6.1. Ежемесячно (ориентир на старте)", level=3)
@@ -564,7 +599,8 @@ def build() -> None:
     fr.font.color.rgb = RGBColor(0x94, 0xA3, 0xB8)
 
     doc.save(OUT)
-    print("Saved:", OUT.name)
+    # Avoid console encoding issues with Unicode arrows in the filename.
+    print("Saved: commercial proposal docx")
 
 
 if __name__ == "__main__":
