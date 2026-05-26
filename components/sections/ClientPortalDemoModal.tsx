@@ -103,7 +103,7 @@ export function ClientPortalDemoModal({ open, onClose }: Props) {
             <div className="flex items-start justify-between gap-4 border-b border-slate-700 px-5 py-4">
               <div className="min-w-0">
                 <p className="text-xs font-bold uppercase tracking-widest text-amber-500">
-                  Demo · Client Portal (v1)
+                  Демо · Личный кабинет клиента (v1)
                 </p>
                 <h2 className="mt-1 truncate font-display text-lg font-bold text-white">
                   {clientPortalDemo.company} · {clientPortalDemo.facility}

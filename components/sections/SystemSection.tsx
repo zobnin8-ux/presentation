@@ -22,29 +22,22 @@ function ArchitecturePreview({ onOpen }: { onOpen: () => void }) {
     <button
       type="button"
       onClick={onOpen}
-      className="group flex max-w-[min(100%,20rem)] items-stretch gap-3 rounded-xl border-2 border-amber-500 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-2 pr-4 shadow-lg ring-2 ring-amber-400/40 transition hover:scale-[1.02] hover:shadow-xl hover:ring-amber-500"
+      className="group inline-flex items-center gap-3 rounded-full border-2 border-amber-500 bg-white px-3.5 py-2 text-sm font-bold text-amber-800 shadow-sm transition hover:bg-amber-50"
     >
-      <span className="relative h-[4.5rem] w-[8rem] shrink-0 overflow-hidden rounded-lg ring-2 ring-amber-500/60">
+      <span className="relative h-9 w-14 shrink-0 overflow-hidden rounded-lg ring-2 ring-amber-500/60">
         <Image
           src={architectureSlide.image}
           alt=""
           fill
           unoptimized
           className="object-cover object-center transition duration-300 group-hover:scale-105"
-          sizes="160px"
+          sizes="64px"
         />
         <span className="absolute inset-0 flex items-center justify-center bg-slate-950/30 transition group-hover:bg-slate-950/50">
-          <ZoomIn className="h-7 w-7 text-amber-400 drop-shadow-lg transition group-hover:scale-110" />
+          <ZoomIn className="h-4 w-4 text-amber-200 drop-shadow-lg transition group-hover:scale-110" />
         </span>
       </span>
-      <span className="flex min-w-0 flex-col justify-center text-left">
-        <span className="font-display text-sm font-bold leading-snug text-amber-400">
-          {architectureSlide.previewLabel}
-        </span>
-        <span className="mt-0.5 text-xs font-medium text-slate-400 group-hover:text-amber-200/90">
-          {architectureSlide.previewHint}
-        </span>
-      </span>
+      Архитектура системы
     </button>
   );
 }
@@ -69,10 +62,10 @@ function ContourDiagram({
           <button
             type="button"
             onClick={onOpenPortalDemo}
-            className="inline-flex items-center gap-2 rounded-full border-2 border-slate-700 bg-slate-900 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-slate-800"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-amber-500 bg-white px-4 py-2 text-sm font-bold text-amber-800 shadow-sm transition hover:bg-amber-50"
           >
-            <LayoutDashboard className="h-4 w-4 text-amber-400" />
-            Demo: Client Portal
+            <LayoutDashboard className="h-4 w-4 text-amber-600" />
+            Личный кабинет клиента
           </button>
           <button
             type="button"
@@ -80,7 +73,7 @@ function ContourDiagram({
             className="inline-flex items-center gap-2 rounded-full border-2 border-amber-500 bg-white px-4 py-2 text-sm font-bold text-amber-800 shadow-sm transition hover:bg-amber-50"
           >
             <Play className="h-4 w-4 fill-amber-600" />
-            Пример одного прохода заявки
+            Пример прохода заявки
           </button>
         </div>
       </div>
