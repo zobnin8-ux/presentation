@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <!-- Dark slate base (matches deck) -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#0F172A"/>
+
+  <!-- Subtle technical grid -->
+  <g opacity="0.16" stroke="#94A3B8" stroke-width="1">
+    <path d="M14 2v60M26 2v60M38 2v60M50 2v60"/>
+    <path d="M2 14h60M2 26h60M2 38h60M2 50h60"/>
+  </g>
+
+  <!-- Inner frame -->
+  <rect x="10" y="10" width="44" height="44" rx="12" stroke="#334155" stroke-width="2"/>
+
+  <!-- Stylized flow arrow (US pipeline) -->
+  <path
+    d="M18 34c0-7 4.5-12 13-12h8"
+    stroke="#F59E0B"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+  <path
+    d="M18 34c0 7 4.5 12 13 12h10"
+    stroke="#F59E0B"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+  <path
+    d="M44 26l8 8-8 8"
+    stroke="#F59E0B"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Nodes (intake / estimator / repeat) -->
+  <circle cx="18" cy="34" r="3" fill="#FBBF24"/>
+  <circle cx="31" cy="22" r="2.5" fill="#FBBF24" opacity="0.85"/>
+  <circle cx="31" cy="46" r="2.5" fill="#FBBF24" opacity="0.85"/>
+</svg>
