@@ -52,12 +52,13 @@ export function PresentationShell() {
   return (
     <div className="presentation-shell flex h-screen overflow-hidden bg-slate-100">
       <aside className="presentation-sidebar flex w-[300px] shrink-0 flex-col bg-white shadow-[4px_0_24px_rgba(15,23,42,0.06)]">
-        <header className="border-b border-slate-100 px-8 pb-6 pt-10">
-          <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900">
-            GRC <span className="text-amber-700">→</span> US
+        <header className="border-b border-amber-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-8 pb-8 pt-10">
+          <h1 className="font-display text-3xl font-bold tracking-tight text-white">
+            GRC <span className="text-amber-400">→</span> US
           </h1>
-          <p className="mt-2 text-sm font-medium text-slate-600">{shellIntro.tagline}</p>
-          <p className="mt-1 text-xs text-slate-400">{shellIntro.note}</p>
+          <p className="mt-3 text-sm font-semibold uppercase tracking-[0.12em] text-amber-400/95">
+            {shellIntro.tagline}
+          </p>
         </header>
 
         <nav className="flex flex-1 flex-col gap-1 px-4 py-6">

@@ -78,8 +78,7 @@ export type PresentationSectionId = (typeof presentationSections)[number]["id"];
 
 export const shellIntro = {
   title: "GRC → US",
-  tagline: "Предложение · Andrei Zobnin",
-  note: "Операционная система для выхода на US-рынок · кликайте пункт слева",
+  tagline: "US-контур · предложение",
 };
 
 export const sectionHeaders = {
